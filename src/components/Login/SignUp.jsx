@@ -20,12 +20,7 @@ import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
 const SignupScreen = () => {
 
     const navigation = useNavigation()
-    const [selectedOption, setSelectedOption] = useState('')
     const [isChecked, setIsChecked] = useState(false);
-
-    useEffect(() => {
-        console.log('Option is Changing', selectedOption)
-    }, [selectedOption])
 
     useEffect(() => {
         const backAction = ()=>{
@@ -58,8 +53,6 @@ const SignupScreen = () => {
                         />
                         <Text style={styles.title}>Sign Up</Text>
                     </View>
-
-                    <TwoWayPushButton option1={'Vendor'} option2={'Driver'} setter={setSelectedOption} />
 
                     <View style={styles.logoPart}>
                         <UserInput
@@ -106,6 +99,7 @@ const styles = StyleSheet.create({
         color: `black`,
         fontSize: 35,
         fontWeight: `500`,
+        margin : 20
     }
 })
 export default SignupScreen

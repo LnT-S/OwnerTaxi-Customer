@@ -13,7 +13,6 @@ import { SafeAreaView } from 'react-native';
 const LoginPage = () => {
 
     const navigation = useNavigation()
-    const [selectedOption, setSelectedOption] = useState('')
     const [showModal, setShowModal] = useState(false)
 
     const handleYes = async () => {
@@ -29,9 +28,7 @@ const LoginPage = () => {
     const handleLogin = () => {
         navigation.navigate('HomeSceen')
     }
-    useEffect(() => {
-        console.log('Option is Changing', selectedOption)
-    }, [selectedOption])
+    
 
     useEffect(() => {
         const backFuntion = () => {
@@ -73,8 +70,6 @@ const LoginPage = () => {
                         />
                         <Text style={styles.title}>LogIn</Text>
                     </View>
-
-                    <TwoWayPushButton option1={'Vendor'} option2={'Driver'} setter={setSelectedOption} />
 
                     <View style={styles.formpart}>
                         <UserInput
