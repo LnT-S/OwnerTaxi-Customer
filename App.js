@@ -37,6 +37,7 @@ import ActiveBooking from './src/components/active Booking/ActiveBooking';
 import History from './src/components/history/History';
 import MyProfile from './src/components/My profile/myProfile';
 import Settings from './src/components/settings/Settings';
+import SourceDestinationForm from './src/components/form/SourceDestinationForm';
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator();
@@ -50,6 +51,8 @@ function DrawerNavigator() {
       <Drawer.Screen name="History" component={History} options={{ headerShown: false }} />
       <Drawer.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
       <Drawer.Screen name="Setting" component={Settings} options={{ headerShown: false }} />
+      <Drawer.Screen name='SourceDestinationForm' component={SourceDestinationForm} options={{ headerShown: false }}
+    />
     </Drawer.Navigator>
   );
 }
@@ -109,6 +112,7 @@ function App() {
                 component={DrawerNavigator}
                 options={{ headerShown: false }}
               />
+             
               <Stack.Screen
                 name='ProfileScreen'
                 component={ProfilePage}

@@ -2,20 +2,25 @@ import React from 'react'
 import { View, ScrollView } from 'react-native'
 import MapComponent from '../map/MapComponent'
 import PlacesAutoComplete from '../map/PlacesAutoComplete'
+import AuthenticatedLayout from '../../screens/layout/AuthenticatedLayout'
 
 
 const SourceDestinationForm = () => {
   return (
-   
-      <View style={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: 'green' }}>
-        <View style={{ height: '50%',position: 'relative' , zIndex : 2}}>
-          <PlacesAutoComplete />
+    <AuthenticatedLayout >
+      <View>
+        <View style={{zIndex : 500}}>
+          <PlacesAutoComplete placeholder={'Source'}/>
         </View>
-        <View style={{ height: '50%',position: 'relative' }}>
+        <View style={{ zIndex: 400 }}>
+          <PlacesAutoComplete placeholder={'Destination'}/>
+        </View>
+        <View style={{marginTop:10, borderColor:'black',margin:5,borderWidth:5}}>
           <MapComponent />
         </View>
-
       </View>
+    </AuthenticatedLayout>
+
   )
 }
 
