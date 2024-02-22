@@ -15,6 +15,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { ContextProvider } from './src/context/ContextProvider';
 // import { NavigationContainer } from '@react-navigation/native';
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -31,9 +32,27 @@ import { BgColor } from './src/styles/colors';
 import OtpScreen from './src/components/Login/OTP';
 import NewPassword from './src/components/Login/NewPassword';
 import AuthenticatedLayout from './src/screens/layout/AuthenticatedLayout';
-import SourceDestinationForm from './src/components/form/SourceDestinationForm';
+import CustomDrawerContent from './src/adOns/molecules/CustomDrawerContent';
+import ActiveBooking from './src/components/active Booking/ActiveBooking';
+import History from './src/components/history/History';
+import MyProfile from './src/components/My profile/myProfile';
+import Settings from './src/components/settings/Settings';
 
 const Stack = createNativeStackNavigator()
+const Drawer = createDrawerNavigator();
+
+function DrawerNavigator() {
+
+  return (
+    <Drawer.Navigator initialRouteName='Home' drawerContent={(props) => <CustomDrawerContent {...props} />} backBehavior="history">
+      <Drawer.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
+      <Drawer.Screen name="ActiveBooking" component={ActiveBooking} options={{ headerShown: false }} />
+      <Drawer.Screen name="History" component={History} options={{ headerShown: false }} />
+      <Drawer.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
+      <Drawer.Screen name="Setting" component={Settings} options={{ headerShown: false }} />
+    </Drawer.Navigator>
+  );
+}
 
 function App() {
 
@@ -85,21 +104,16 @@ function App() {
               component={SignupScreen}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
-              name='HomeSceen'
-              component={HomePage}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name='ProfileScreen'
-              component={ProfilePage}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name='SourceDestinationForm'
-              component={SourceDestinationForm}
-              options={{ headerShown: false }}
-            />
+              <Stack.Screen
+                name='HomeScreen'
+                component={DrawerNavigator}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name='ProfileScreen'
+                component={ProfilePage}
+                options={{ headerShown: false }}
+              />
           </Stack.Navigator>)}
         </NavigationContainer>
       </ContextProvider>
