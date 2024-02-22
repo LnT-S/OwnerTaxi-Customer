@@ -34,7 +34,7 @@ const HomePage = () => {
                         <SearchBox searchArray={searchArray} />
                     </View>
                     <View style={{ position: 'relative', zIndex: 1 }}>
-                        <View style = {styles.modeContainer}>
+                        <View>
                             <View style = {styles.pamHeadingContainer}>
                                 <Text style = {styles.pamHeading}>
                                     Pick A Mode
@@ -69,9 +69,7 @@ const HomePage = () => {
 }
 
 const styles = StyleSheet.create({
-    modeContainer : {
-        backgroundColor : 'rgb(248,248,130)'
-    },
+    
     pamHeadingContainer : {
         paddingHorizontal : 10,
         marginVertical : 5

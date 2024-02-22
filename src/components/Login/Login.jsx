@@ -26,7 +26,7 @@ const LoginPage = () => {
         navigation.navigate('ForgetScreen')
     }
     const handleLogin = () => {
-        navigation.navigate('HomeSceen')
+        navigation.navigate('HomeScreen')
     }
     
 

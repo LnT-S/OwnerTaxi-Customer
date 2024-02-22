@@ -1,16 +1,17 @@
 import React from 'react'
+import { Text, View } from 'react-native'
 import AuthenticatedLayout from '../../screens/layout/AuthenticatedLayout'
 
-const Settings = () => {
+const ActiveBooking = () => {
     return (
         <AuthenticatedLayout>
             <View>
                 <Text>
-                    Settings Page
+                    ActiveBooking Page
                 </Text>
             </View>
         </AuthenticatedLayout>
     )
 }
 
-export default Settings
+export default ActiveBooking
