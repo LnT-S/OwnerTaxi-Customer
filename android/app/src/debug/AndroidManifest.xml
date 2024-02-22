@@ -5,5 +5,9 @@
     <application
         android:usesCleartextTraffic="true"
         tools:targetApi="28"
-        tools:ignore="GoogleAppIndexingWarning"/>
+        tools:ignore="GoogleAppIndexingWarning">
+         <meta-data
+        android:name="com.google.android.geo.AIzaSyAlEujvNEFTFUBtG9363FjtK-3YOLAUSfM"
+        android:value="AIzaSyAlEujvNEFTFUBtG9363FjtK-3YOLAUSfM"/>
+        </application>
 </manifest>

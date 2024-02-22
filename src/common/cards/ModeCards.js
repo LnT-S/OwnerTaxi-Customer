@@ -1,11 +1,18 @@
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView, View, Text, StyleSheet, Image, ImageBackground, TouchableOpacity } from 'react-native'
 
 const ModeCards = (props) => {
 
     const { image, mode, subMode } = props
+    const navigation = useNavigation()
+
+    const handleFormSubmission = ()=>{
+        navigation.navigate('SourceDestinationForm')
+    }
+
     return (
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={handleFormSubmission}>
             <ImageBackground source={image} style={styles.image} imageStyle={{ opacity: 0.55 }}>
                 <View style={styles.innerCard}>
                     <View style={styles.mode}>

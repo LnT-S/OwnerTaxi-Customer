@@ -70,11 +70,12 @@ const HomePage = () => {
 
 const styles = StyleSheet.create({
     modeContainer : {
-        backgroundColor : 'rgb(248,248,130)'
+        backgroundColor : BgColor
     },
     pamHeadingContainer : {
         paddingHorizontal : 10,
-        marginVertical : 5
+        marginVertical : 5,
+        borderBottomWidth : 2
     },
     pamHeading : {
         fontSize : 24,

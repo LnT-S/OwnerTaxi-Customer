@@ -31,6 +31,7 @@ import { BgColor } from './src/styles/colors';
 import OtpScreen from './src/components/Login/OTP';
 import NewPassword from './src/components/Login/NewPassword';
 import AuthenticatedLayout from './src/screens/layout/AuthenticatedLayout';
+import SourceDestinationForm from './src/components/form/SourceDestinationForm';
 
 const Stack = createNativeStackNavigator()
 
@@ -84,16 +85,21 @@ function App() {
               component={SignupScreen}
               options={{ headerShown: false }}
             />
-              <Stack.Screen
-                name='HomeSceen'
-                component={HomePage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name='ProfileScreen'
-                component={ProfilePage}
-                options={{ headerShown: false }}
-              />
+            <Stack.Screen
+              name='HomeSceen'
+              component={HomePage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name='ProfileScreen'
+              component={ProfilePage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name='SourceDestinationForm'
+              component={SourceDestinationForm}
+              options={{ headerShown: false }}
+            />
           </Stack.Navigator>)}
         </NavigationContainer>
       </ContextProvider>
