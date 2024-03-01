@@ -38,6 +38,10 @@ import History from './src/components/history/History';
 import MyProfile from './src/components/My profile/myProfile';
 import Settings from './src/components/settings/Settings';
 import SourceDestinationForm from './src/components/form/SourceDestinationForm';
+import Message from './src/components/Message/Message';
+import Notification from './src/components/Notification/Notification';
+import MessageScreen from './src/components/Message/MessageScreen';
+import NotificationFullPage from './src/components/Notification/NotificationFullPage';
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator();
@@ -50,6 +54,10 @@ function DrawerNavigator() {
       <Drawer.Screen name="ActiveBooking" component={ActiveBooking} options={{ headerShown: false }} />
       <Drawer.Screen name="History" component={History} options={{ headerShown: false }} />
       <Drawer.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
+      <Drawer.Screen name="Message" component={Message} options={{ headerShown: false }} />
+      <Drawer.Screen name="messageScreen" component={MessageScreen} options={{ headerShown: false }} />
+      <Drawer.Screen name="Notification" component={Notification} options={{ headerShown: false }} />
+      <Drawer.Screen name="notificationScreen" component={NotificationFullPage} options={{ headerShown: false }} />
       <Drawer.Screen name="Setting" component={Settings} options={{ headerShown: false }} />
       <Drawer.Screen name='SourceDestinationForm' component={SourceDestinationForm} options={{ headerShown: false }}
     />

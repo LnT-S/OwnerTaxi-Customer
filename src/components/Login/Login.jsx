@@ -28,7 +28,7 @@ const LoginPage = () => {
     const handleLogin = () => {
         navigation.navigate('HomeScreen')
     }
-    
+
 
     useEffect(() => {
         const backFuntion = () => {
@@ -53,54 +53,54 @@ const LoginPage = () => {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={{ flex: 1 }}>
             <ScrollView style={{ flex: 1 }}>
-            <SafeAreaView style={{ flex: 1 }}>
-                <View style={styles.loginpage}>
-                    <YesNoModal
-                        show={showModal}
-                        setShow={setShowModal}
-                        title={'EXIT ?'}
-                        message={'Are You Sure Want To Exit ?'}
-                        handleYes={handleYes}
-                        yesText={'Exit'}
-                        noText={'Cancel'} />
-                    <View style={styles.logoPart}>
-                        <Image
-                            source={require('../../assets/imgaes/DriverAppLogo.png')}
-                            style={{ width: 300, height: 100 }}
-                        />
-                        <Text style={styles.title}>LogIn</Text>
-                    </View>
+                <SafeAreaView style={{ flex: 1 }}>
+                    <View style={styles.loginpage}>
+                        <YesNoModal
+                            show={showModal}
+                            setShow={setShowModal}
+                            title={'EXIT ?'}
+                            message={'Are You Sure Want To Exit ?'}
+                            handleYes={handleYes}
+                            yesText={'Exit'}
+                            noText={'Cancel'} />
+                        <View style={styles.logoPart}>
+                            <Image
+                                source={require('../../assets/imgaes/DriverAppLogo.png')}
+                                style={{ width: 300, height: 100 }}
+                            />
+                            <Text style={styles.title}>LogIn</Text>
+                        </View>
 
-                    <View style={styles.formpart}>
-                        <UserInput
-                            style={[styles.input]}
-                            placeholder='UserName or Phone No.'
-                            icon={'person'}
-                        />
+                        <View style={styles.formpart}>
+                            <UserInput
+                                style={[styles.input]}
+                                placeholder='Enter your Phone No.'
+                                icon={'person'}
+                            />
 
-                        <PassInput
+                            {/*<PassInput
                             placeholder='Password'
                         />
                         <View>
                             <Pressable onPress={ForgetPage}>
                                 <Text style={styles.link}>Forgot Password?</Text>
                             </Pressable>
-                        </View>
-                        <PressButton
-                            name='Log In'
-                            onPress={handleLogin}
-                        />
-                        <View style={styles.content}>
+    </View>*/}
+                            <PressButton
+                                name='Log In'
+                                onPress={handleLogin}
+                            />
+                            {/*} <View style={styles.content}>
                             <View style={styles.signupContainer}>
                                 <Text style={styles.createAccount}>Don't have an account?</Text>
                                 <Pressable onPress={SignUpPage}>
                                     <Text style={styles.link}>Sign Up</Text>
                                 </Pressable>
                             </View>
+                        </View>*/}
                         </View>
                     </View>
-                </View>
-            </SafeAreaView>
+                </SafeAreaView>
             </ScrollView>
         </KeyboardAvoidingView>
     )
@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
         justifyContent: `center`,
         alignItems: 'center',
         backgroundColor: BgColor,
-        height : height + StatusBar.currentHeight,
-        gap : 25
+        height: height + StatusBar.currentHeight,
+        gap: 25
 
     },
     logoPart: {

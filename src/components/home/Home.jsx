@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { BackHandler, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { BackHandler,StyleSheet, Text, View ,TouchableOpacity} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import SearchBox from '../../adOns/atoms/Search'
 import AuthenticatedLayout from '../../screens/layout/AuthenticatedLayout'
-import ModeCards from '../../common/cards/ModeCards'
-import local from '../../assets/imgaes/local.png'
-import intercity from '../../assets/imgaes/intercity.jpeg'
-import { BgColor } from '../../styles/colors'
+import {ScreenColor } from '../../styles/colors'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import PlacesAutoComplete from '../map/PlacesAutoComplete'
+import { Image } from 'react-native-elements'
 
 const HomePage = () => {
     const navigation = useNavigation()
-    const [showSearchResult, setShowSearchResults] = useState(true)
     //Dummy Search Array
-    const [searchArray, setSearchArray] = useState(['item1', 'uditsir', 'kalyaanimaam', 'shrutimaam', 'herapheri', 'kgf'])
+
     useEffect(() => {
         const backAction = () => {
             navigation.goBack()
@@ -28,81 +26,136 @@ const HomePage = () => {
 
     return (
         <AuthenticatedLayout title={'Home'}>
-            <ScrollView >
-                <View style={{ position: 'relative' }}>
-                    <View style={{ zIndex: 2 }}>
-                        <SearchBox searchArray={searchArray} />
-                    </View>
-                    <View style={{ position: 'relative', zIndex: 1 }}>
-                        <View>
-                            <View style = {styles.pamHeadingContainer}>
-                                <Text style = {styles.pamHeading}>
-                                    Pick A Mode
-                                </Text>
+            <View style={styles.mainContainer}>
+                <View style={styles.mapContainer}>
+                    <View style={styles.addressContainer}>
+                        <View style={styles.icon}>
+                            <View style={styles.iconContainer}>
+                                <Icon name="location-on" size={24} color="green" />
                             </View>
-                            <View>
-                                <View style={styles.individualModeContainer}>
-                                    <View style={styles.modeHeadingContainer}>
-                                        <Text style={styles.modeHeading}>Local</Text>
-                                    </View>
-                                    <View style = {{...styles.modeCardsContiner , justifyContent : 'flex-start', padding : 11}}>
-                                        <ModeCards image = {intercity} mode={'Local'} subMode = {'One Way'}/>
-                                    </View>
-                                </View>
-                                <View style={styles.individualModeContainer}>
-                                    <View style={styles.modeHeadingContainer}>
-                                        <Text style = {styles.modeHeading}>InterCity</Text>
-                                    </View>
-                                    <View style = {styles.modeCardsContiner}>
-                                        <ModeCards image = {intercity} mode={'InterCity'} subMode = {'Round Trip'}/>
-                                        <ModeCards image = {intercity} mode={'InterCity'} subMode = {'One Way'}/>
-                                        <ModeCards image = {intercity} mode={'InterCity'} subMode = {'Sharing'}/>
-                                    </View>
-                                </View>
+                            <View style={styles.dottedLine}>
+                                {[...Array(10)].map((_, index) => (
+                                    <Icon key={index} name="lens" size={4} color="gray" />
+                                ))}
+                            </View>
+                            <View style={styles.iconContainer}>
+                                <Icon name="location-on" size={24} color="red" />
+                            </View>
+                        </View>
+                        <View style={styles.addressInput}>
+                            <View><Text style={styles.text}>Pickup Location</Text></View>
+                            <View style={styles.pickupCnontainer}>
+                                <PlacesAutoComplete placeholder={'Enter Your Pickup Location'} />
+                            </View>
+                            <View><Text style={styles.text}>Drop Location</Text></View>
+                            <View style={styles.dropContainer}>
+                                <PlacesAutoComplete placeholder={'Destination'} />
                             </View>
                         </View>
                     </View>
                 </View>
-            </ScrollView>
+                <View style={styles.suggestionContainer}>
+                    <Text style={styles.suggestiontext}>Suggestions</Text>
+                    <View style={styles.suggestioninnerContainer}>
+                        <TouchableOpacity>
+                            <Image source= {require('../../assets/imgaes/Local.jpg')} 
+                            style={{ width: 80, height: 80 ,borderRadius:10}}/>
+                            <Text style={styles.suggestionText}>Local</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Image source={require('../../assets/imgaes/Intercity.png')} style={{ width: 80, height: 80,borderRadius:10 }}/>
+                            <Text style={styles.suggestionText}>Intercity</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Image source={require('../../assets/imgaes/sharing.jpg')} style={{ width: 80, height: 80,borderRadius:10 }}/>
+                            <Text style={styles.suggestionText}>Sharing</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Image source={require('../../assets/imgaes/rental.jpg')} style={{ width: 80, height: 80 ,borderRadius:10}}/>
+                            <Text style={styles.suggestionText}>Rental</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={styles.TourPacContainer}></View>
+            </View>
         </AuthenticatedLayout>
     )
 }
 
 const styles = StyleSheet.create({
-    
-    pamHeadingContainer : {
-        paddingHorizontal : 10,
-        marginVertical : 5,
-        borderBottomWidth : 2
+    mainContainer: {
+        flex: 1,
+        position: 'relative',
+        backgroundColor: ScreenColor,
     },
-    pamHeading : {
-        fontSize : 24,
-        fontWeight : '900',
-        marginTop : 5,
-        fontStyle : 'normal'
+    mapContainer: {
+        height: 350,
+        position: 'relative',
+        backgroundColor: 'white',
     },
-    individualModeContainer:{
-        padding : 1,
-        marginVertical : 6
+    icon: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '10%'
     },
-    individualMode : {
+    addressContainer: {
+        width: '95%',
+        position: 'absolute',
+        top: 10,
+        borderWidth: 2,
+        flexDirection: 'row',
+        marginHorizontal: 10,
+        backgroundColor: ScreenColor,
+        paddingBottom: 10,
     },
-    modeHeadingContainer : {
+    iconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
-    modeHeading : {
-        fontWeight : '600',
-        fontSize : 20,
-        margin : 5,
+
+    dottedLine: {
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    addressInput: {
+        width: '95%',
+    },
+    pickupCnontainer: {
+        width: '95%',
+        zIndex: 600,
+    },
+    dropContainer: {
+        width: '95%',
+        zIndex: 400,
+    },
+    text: {
         color: 'black',
-        padding : 3
+        fontSize: 16,
+        marginLeft: 10
     },
-    modeCardsContiner : {
-        padding : 5,
-        display : 'flex',
-        flexDirection : 'row',
-        flexWrap : 'wrap',
-        justifyContent : 'space-around',
-        gap : 15,
+    suggestionContainer: {
+
+    },
+    TourPacContainer: {
+
+    },
+    suggestiontext: {
+        color: 'black',
+        fontSize: 18,
+        fontWeight:'800',
+        margin: 12
+    },
+    suggestioninnerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+    },
+    suggestionText:{
+        color: 'black',
+        fontSize: 14,
+        fontWeight:'500',
+        textAlign: 'center'
     }
 })
 
