@@ -1,16 +1,18 @@
 import React from 'react';
-import { Text, View, StyleSheet,TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { getResponsiveValue } from '../../styles/responsive';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 navigator.geolocation = require('@react-native-community/geolocation');
 
 const PlacesAutoComplete = (props) => {
-    const { placeholder } = props
+    const { placeholder,width } = props
     return (
-        <View style={{ height: 45, margin: 5, color: 'black' }}>
+        <View style={{ height: 45, margin: 5, color: 'black',width:width }}>
             <GooglePlacesAutocomplete
                 placeholder={placeholder}
+                fetchDetails={true}
                 textInputProps={{
                     placeholderTextColor: 'gray'
                 }}
@@ -30,8 +32,8 @@ const PlacesAutoComplete = (props) => {
                 currentLocation={true}
                 currentLocationLabel='Current location'
 
-                currentLocationStyle={{ color : 'black' }}
-                
+                currentLocationStyle={{ color: 'black' }}
+
                 styles={{
                     predefinedPlacesDescription: {
                         color: 'black',
@@ -53,16 +55,20 @@ const PlacesAutoComplete = (props) => {
                     row: {
                         backgroundColor: 'white',
                         zIndex: 500,
-                        color: 'black'
+                        color: 'black',
+                        width : '100%'
                     },
                     listView: {
+                        height : 500,
+                        overflow : 'scroll',
                         position: 'absolute',
                         top: 50,
                         left: 0,
                         zIndex: 500,
-                        color: 'black'
+                        color: 'black',
+                        width : '100%'
                     },
-                    
+
 
                 }}
             />
@@ -74,7 +80,8 @@ const styles = StyleSheet.create({
     listItem: {
         color: 'black',
         backgroundColor: 'white',
-        zIndex: 2
+        zIndex: 2,
+        width : '100%'
     },
     listItemText: {
         color: 'black'

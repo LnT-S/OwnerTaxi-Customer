@@ -52,10 +52,9 @@ const styles = StyleSheet.create({
         justifyContent: `space-around`,
         alignItems: 'center',
         backgroundColor: `black`,
-        borderRadius: 20,
         padding : 7,
         margin: 20,
-        width: '60%'
+        width: '90%'
     },
     defaultpushstyle: {
         color: `white`,
@@ -64,7 +63,6 @@ const styles = StyleSheet.create({
     pushstyle: {
         backgroundColor: `white`,
         color: `black`,
-        borderRadius: 12,
     },
     defaultBottonText : {
         fontSize: 20,

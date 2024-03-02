@@ -14,6 +14,7 @@ import {
   Text,
   useColorScheme,
   View,
+  LogBox
 } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { ContextProvider } from './src/context/ContextProvider';
@@ -42,15 +43,22 @@ import Message from './src/components/Message/Message';
 import Notification from './src/components/Notification/Notification';
 import MessageScreen from './src/components/Message/MessageScreen';
 import NotificationFullPage from './src/components/Notification/NotificationFullPage';
+import LocalForm from './src/components/home/LocalForm.jsx';
+import Intercity from './src/components/home/Intercity.jsx';
+import Rental from './src/components/home/Rental.jsx';
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator();
+LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollViews'])
 
 function DrawerNavigator() {
 
   return (
     <Drawer.Navigator initialRouteName='Home' drawerContent={(props) => <CustomDrawerContent {...props} />} backBehavior="history">
       <Drawer.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
+      <Drawer.Screen name="Local" component={LocalForm} options={{ headerShown: false }} />
+      <Drawer.Screen name="Intercity" component={Intercity} options={{ headerShown: false }} />
+      <Drawer.Screen name="Rental" component={Rental} options={{ headerShown: false }} />
       <Drawer.Screen name="ActiveBooking" component={ActiveBooking} options={{ headerShown: false }} />
       <Drawer.Screen name="History" component={History} options={{ headerShown: false }} />
       <Drawer.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
