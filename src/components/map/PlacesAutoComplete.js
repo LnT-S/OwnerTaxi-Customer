@@ -29,8 +29,7 @@ const PlacesAutoComplete = (props) => {
                 )}
                 currentLocation={true}
                 currentLocationLabel='Current location'
-
-                currentLocationStyle={{ color : 'white' }}
+                currentLocationStyle={{ color : 'white'}}
                 
                 styles={{
                     predefinedPlacesDescription: {
@@ -57,7 +56,7 @@ const PlacesAutoComplete = (props) => {
                     },
                     row: {
                         backgroundColor: 'black',
-                        zIndex: 3
+                        zIndex: 3,
                     },
                     listView: {
                         position: 'absolute',
