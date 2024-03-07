@@ -14,6 +14,7 @@ import {
   Text,
   useColorScheme,
   View,
+  LogBox
 } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { ContextProvider } from './src/context/ContextProvider';
@@ -35,22 +36,41 @@ import AuthenticatedLayout from './src/screens/layout/AuthenticatedLayout';
 import CustomDrawerContent from './src/adOns/molecules/CustomDrawerContent';
 import ActiveBooking from './src/components/active Booking/ActiveBooking';
 import History from './src/components/history/History';
-import MyProfile from './src/components/My profile/myProfile';
-import Settings from './src/components/settings/Settings';
 import SourceDestinationForm from './src/components/form/SourceDestinationForm';
+import Message from './src/components/Message/Message';
+import Notification from './src/components/Notification/Notification';
+import MessageScreen from './src/components/Message/MessageScreen';
+import NotificationFullPage from './src/components/Notification/NotificationFullPage';
+import LocalForm from './src/components/home/LocalForm.jsx';
+import Intercity from './src/components/home/Intercity.jsx';
+import Rental from './src/components/home/Rental.jsx';
+import Sharing from './src/components/home/Sharing.jsx';
+import Setting from './src/components/settings/Settting.jsx';
+import Profile from './src/components/profile/Profile';
+import Services from './src/components/services/Services.jsx';
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator();
+LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.'])
 
 function DrawerNavigator() {
 
   return (
     <Drawer.Navigator initialRouteName='Home' drawerContent={(props) => <CustomDrawerContent {...props} />} backBehavior="history">
       <Drawer.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
+      <Drawer.Screen name="Local" component={LocalForm} options={{ headerShown: false }} />
+      <Drawer.Screen name="Intercity" component={Intercity} options={{ headerShown: false }} />
+      <Drawer.Screen name="Rental" component={Rental} options={{ headerShown: false }} />
+      <Drawer.Screen name="Sharing" component={Sharing} options={{ headerShown: false }} />
       <Drawer.Screen name="ActiveBooking" component={ActiveBooking} options={{ headerShown: false }} />
       <Drawer.Screen name="History" component={History} options={{ headerShown: false }} />
-      <Drawer.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
-      <Drawer.Screen name="Setting" component={Settings} options={{ headerShown: false }} />
+      <Drawer.Screen name="MyProfile" component={Profile} options={{ headerShown: false }} />
+      <Drawer.Screen name="Message" component={Message} options={{ headerShown: false }} />
+      <Drawer.Screen name="messageScreen" component={MessageScreen} options={{ headerShown: false }} />
+      <Drawer.Screen name="Notification" component={Notification} options={{ headerShown: false }} />
+      <Drawer.Screen name="notificationScreen" component={NotificationFullPage} options={{ headerShown: false }} />
+      <Drawer.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
+      <Drawer.Screen name="Services" component={Services} options={{ headerShown: false }} />
       <Drawer.Screen name='SourceDestinationForm' component={SourceDestinationForm} options={{ headerShown: false }}
     />
     </Drawer.Navigator>

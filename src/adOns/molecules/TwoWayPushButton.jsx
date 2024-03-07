@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { BgColor } from '../../styles/colors'
 
 const TwoWayPushButton = (props) => {
 
@@ -55,14 +56,14 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding : 7,
         margin: 20,
-        width: '60%'
+        width: '80%'
     },
     defaultpushstyle: {
-        color: `white`,
+        color: BgColor,
         borderRadius: 5,
     },
     pushstyle: {
-        backgroundColor: `white`,
+        backgroundColor: BgColor,
         color: `black`,
         borderRadius: 12,
     },
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         fontWeight: `700`,
-        color : 'white',
+        color : BgColor,
         flexWrap : 'nowrap'
     },
     selectedButton : {

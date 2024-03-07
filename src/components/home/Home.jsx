@@ -1,18 +1,61 @@
 import React, { useEffect, useState } from 'react'
-import { BackHandler, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { BackHandler, ScrollView, StyleSheet, Text, View, TouchableOpacity, FlatList, Animated, Easing, } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import SearchBox from '../../adOns/atoms/Search'
 import AuthenticatedLayout from '../../screens/layout/AuthenticatedLayout'
-import ModeCards from '../../common/cards/ModeCards'
-import local from '../../assets/imgaes/local.png'
-import intercity from '../../assets/imgaes/intercity.jpeg'
-import { BgColor } from '../../styles/colors'
+import { BgColor, ScreenColor } from '../../styles/colors'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import PlacesAutoComplete from '../map/PlacesAutoComplete'
+import { Image } from 'react-native-elements'
 
 const HomePage = () => {
     const navigation = useNavigation()
-    const [showSearchResult, setShowSearchResults] = useState(true)
     //Dummy Search Array
-    const [searchArray, setSearchArray] = useState(['item1', 'uditsir', 'kalyaanimaam', 'shrutimaam', 'herapheri', 'kgf'])
+
+    const TourPackage = [
+        {
+            image: require('../../assets/imgaes/intercity.jpeg'),
+            name: 'Tour Name'
+        },
+        {
+            image: require('../../assets/imgaes/local.png'),
+            name: 'Tour Name'
+        },
+        {
+            image: require('../../assets/imgaes/intercity.jpeg'),
+            name: 'Tour Name'
+        },
+    ]
+    const Services = [
+        {
+            image: require('../../assets/imgaes/Local.jpg'),
+            name: 'Local'
+        },
+        {
+            image: require('../../assets/imgaes/Intercity.png'),
+            name: 'Intercity'
+        },
+        {
+            image: require('../../assets/imgaes/sharing.jpg'),
+            name: 'Sharing'
+        },
+        {
+            image: require('../../assets/imgaes/rental.jpg'),
+            name: 'Rental'
+        },
+    ]
+
+    const handleNavigationServices = (name) => {
+        console.log(name)
+        let navigationName = 'Local'
+        if(name === 'Intercity'){
+            navigationName='Intercity'
+        }else if(name === 'Rental'){
+            navigationName='Rental'
+        }else if(name === 'Sharing'){
+            navigationName='Sharing'
+        }
+       navigation.navigate(navigationName)
+    }
     useEffect(() => {
         const backAction = () => {
             navigation.goBack()
@@ -26,42 +69,68 @@ const HomePage = () => {
         };
     }, []);
 
+
     return (
         <AuthenticatedLayout title={'Home'}>
-            <ScrollView >
-                <View style={{ position: 'relative' }}>
-                    <View style={{ zIndex: 2 }}>
-                        <SearchBox searchArray={searchArray} />
+            <ScrollView style={styles.mainContainer}>
+                {/**Welcome */}
+                <View style={styles.container}>
+                    <Image
+                        source={require('../../assets/imgaes/Taxilogo.png')}
+                        style={[styles.image]}
+                    />
+                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={styles.weltext}>Welcome</Text>
                     </View>
-                    <View style={{ position: 'relative', zIndex: 1 }}>
-                        <View>
-                            <View style = {styles.pamHeadingContainer}>
-                                <Text style = {styles.pamHeading}>
-                                    Pick A Mode
-                                </Text>
-                            </View>
-                            <View>
-                                <View style={styles.individualModeContainer}>
-                                    <View style={styles.modeHeadingContainer}>
-                                        <Text style={styles.modeHeading}>Local</Text>
-                                    </View>
-                                    <View style = {{...styles.modeCardsContiner , justifyContent : 'flex-start', padding : 11}}>
-                                        <ModeCards image = {intercity} mode={'Local'} subMode = {'One Way'}/>
-                                    </View>
-                                </View>
-                                <View style={styles.individualModeContainer}>
-                                    <View style={styles.modeHeadingContainer}>
-                                        <Text style = {styles.modeHeading}>InterCity</Text>
-                                    </View>
-                                    <View style = {styles.modeCardsContiner}>
-                                        <ModeCards image = {intercity} mode={'InterCity'} subMode = {'Round Trip'}/>
-                                        <ModeCards image = {intercity} mode={'InterCity'} subMode = {'One Way'}/>
-                                        <ModeCards image = {intercity} mode={'InterCity'} subMode = {'Sharing'}/>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
+                </View>
+                <View style={styles.suggestionContainer}>
+                    <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', marginHorizontal: 10 }}>
+                        <Text style={styles.suggestiontext}>Services</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('Services')}>
+                            <Text style={styles.seetext}>See All</Text>
+                        </TouchableOpacity>
                     </View>
+                    <FlatList
+                        style={{ marginHorizontal: 20 }}
+                        keyExtractor={(item, index) => (index)}
+                        data={Services}
+                        horizontal
+                        renderItem={({ item, index }) => {
+                            return <TouchableOpacity style={{ margin: 10 }}>
+                                <Image source={item.image}
+                                    style={{ width: 150, height: 150, borderRadius: 10 }}  onPress={()=>handleNavigationServices(item.name)}/>
+                                <Text style={styles.suggestionText}>{item.name}</Text>
+                            </TouchableOpacity>
+                        }}
+                    />
+
+                </View>
+                <View style={styles.TourPacContainer}>
+                    <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', marginHorizontal: 10 }}>
+                        <Text style={styles.suggestiontext}>Tour Packages</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.seetext}>See All</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <FlatList
+                        style={{ marginHorizontal: 10 }}
+                        keyExtractor={(item, index) => (index)}
+                        data={TourPackage}
+                        horizontal
+                        renderItem={({ item, index }) => {
+                            return <TouchableOpacity style={{ margin: 10 }}>
+                                <View style={styles.vehicleImage}>
+                                    <Image source={item.image} style={{ width: 250, height: 200, borderRadius: 10 }} />
+                                    <TouchableOpacity style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                                        <Text style={styles.tourText}>
+                                            {`${item.name}`}
+                                        </Text>
+                                        <Icon name="arrow-forward" size={30} color="black" />
+                                    </TouchableOpacity>
+                                </View>
+                            </TouchableOpacity>
+                        }}
+                    />
                 </View>
             </ScrollView>
         </AuthenticatedLayout>
@@ -69,40 +138,67 @@ const HomePage = () => {
 }
 
 const styles = StyleSheet.create({
-    
-    pamHeadingContainer : {
-        paddingHorizontal : 10,
-        marginVertical : 5,
-        borderBottomWidth : 2
+    mainContainer: {
+        flex: 1,
+        backgroundColor: ScreenColor,
     },
-    pamHeading : {
-        fontSize : 24,
-        fontWeight : '900',
-        marginTop : 5,
-        fontStyle : 'normal'
+
+    TourPacContainer: {
+marginBottom:10
     },
-    individualModeContainer:{
-        padding : 1,
-        marginVertical : 6
-    },
-    individualMode : {
-    },
-    modeHeadingContainer : {
-    },
-    modeHeading : {
-        fontWeight : '600',
-        fontSize : 20,
-        margin : 5,
+    suggestiontext: {
         color: 'black',
-        padding : 3
+        fontSize: 20,
+        fontWeight: '800',
+        margin: 24
     },
-    modeCardsContiner : {
-        padding : 5,
-        display : 'flex',
-        flexDirection : 'row',
-        flexWrap : 'wrap',
-        justifyContent : 'space-around',
-        gap : 15,
+
+    suggestionText: {
+        color: 'black',
+        fontSize: 14,
+        fontWeight: '500',
+        textAlign: 'center'
+    },
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+    },
+    image: {
+        width: 150,
+        height: 150,
+    },
+    weltext: {
+        color: 'black',
+        fontSize: 28,
+        fontWeight: '800',
+        textAlign: 'center',
+        fontStyle: 'normal',
+        textTransform: 'uppercase',
+    },
+    text: {
+        color: 'black',
+        fontSize: 16,
+        marginLeft: 10
+    },
+    nametext: {
+        color: 'black',
+        fontSize: 26,
+        fontWeight: '600',
+        textAlign: 'center',
+        fontStyle: 'italic',
+        textTransform: 'uppercase',
+    },
+    tourText: {
+        color: 'black',
+        fontSize: 18,
+        fontWeight: '500',
+        textAlign: 'center'
+    },
+    seetext: {
+        color: 'black',
+        fontSize: 14,
+        fontWeight: '500',
     }
 })
 

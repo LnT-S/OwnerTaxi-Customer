@@ -75,8 +75,10 @@ const MapComponent = () => {
 };
 
 const styles = StyleSheet.create({
+    container:{
+    },
     map:{
-        height:400,
+        height:450,
     }
 });
 
