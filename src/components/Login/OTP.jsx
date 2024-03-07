@@ -17,7 +17,7 @@ const OtpScreen = () => {
         setOtp(otp);
     };
     const handleVerificationOTP = () => {
-        navigation.navigate('NewPassScreen')
+        navigation.navigate('HomeScreen')
     }
 
     return (
@@ -29,31 +29,32 @@ const OtpScreen = () => {
             </TouchableOpacity>
 
 
-            <View style={styles.signupcontainer}>
+            <View style={[styles.signupcontainer, { flex: 1, backgroundColor: BgColor, display: 'flex', justifyContent: 'center', alignItems: 'center' }]}>
+                <View>
                 <Image
                     source={require('../../assets/imgaes/OTP.png')}
                     resizeMode="contain"
                     style={styles.image}
                 />
-                <Text style={styles.title}>Verification</Text>
-            </View>
+                    <Text style={styles.title}>Verification</Text>
+                </View>
 
-            <View style={styles.otpcontainer}>
-                <OTPInput length={6} onOTPChange={handleOTPChange} />
+                <View style={styles.otpcontainer}>
+                    <OTPInput length={6} onOTPChange={handleOTPChange} />
 
-                <PressButton
-                    style={{ marginTop: 60 }}
-                    name='Verify OTP'
-                    onPress = {handleVerificationOTP}
-                />
+                    <PressButton
+                        style={{ marginTop: 60 }}
+                        name='Verify OTP'
+                        onPress={handleVerificationOTP}
+                    />
 
-                <View style = {styles.resendtext}>
-                    <Text style= {{fontSize:15, color: 'black'}}>
-                    Resend OTP in 00:00 seconds
-                    </Text>
+                    <View style={styles.resendtext}>
+                        <Text style={{ fontSize: 15, color: 'black' }}>
+                            Resend OTP in 00:00 seconds
+                        </Text>
+                    </View>
                 </View>
             </View>
-
         </KeyboardAvoidingView>
 
     )
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     image: {
         width: getResponsiveValue(200, 100),
         height: getResponsiveValue(200, 100),
-        left: getResponsiveValue("4%", "4%"),
+        left: getResponsiveValue("6%", "14%"),
     },
     title: {
         color: `black`,
@@ -70,13 +71,11 @@ const styles = StyleSheet.create({
         fontWeight: `500`,
     },
     signupcontainer: {
-        marginTop: 40,
         justifyContent: `center`,
         alignItems: `center`
-        
+
     },
     otpcontainer: {
-        marginTop: 40,
         justifyContent: `center`,
         alignItems: `center`
     },

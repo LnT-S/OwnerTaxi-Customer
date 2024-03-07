@@ -26,7 +26,7 @@ const LoginPage = () => {
         navigation.navigate('ForgetScreen')
     }
     const handleLogin = () => {
-        navigation.navigate('HomeScreen')
+        navigation.navigate('OTPScreen')
     }
 
 
@@ -51,7 +51,7 @@ const LoginPage = () => {
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{ flex: 1 }}>
+            style={{ flex: 1 , backgroundColor : BgColor }}>
             <ScrollView style={{ flex: 1 }}>
                 <SafeAreaView style={{ flex: 1 }}>
                     <View style={styles.loginpage}>
@@ -66,7 +66,7 @@ const LoginPage = () => {
                         <View style={styles.logoPart}>
                             <Image
                                 source={require('../../assets/imgaes/DriverAppLogo.png')}
-                                style={{ width: 300, height: 100 }}
+                                style={{ width: 300, height: 155 }}
                             />
                             <Text style={styles.title}>LogIn</Text>
                         </View>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         justifyContent: `center`,
         alignItems: 'center',
         backgroundColor: BgColor,
-        height: height + StatusBar.currentHeight,
+        height: height ,
         gap: 25
 
     },

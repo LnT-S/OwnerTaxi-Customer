@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { getResponsiveValue } from '../../styles/responsive';
@@ -6,19 +6,34 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 navigator.geolocation = require('@react-native-community/geolocation');
 
+
+
 const PlacesAutoComplete = (props) => {
-    const { placeholder,width } = props
+    const { placeholder, width, stops ,  setStops , index ,item} = props
+    const [desc , setDesc] = useState(item ? item.description : '')
+
+    const handlePlaceSelected = (place) => {
+        let temp = stops
+        temp[index] = place
+        setStops([...temp])
+    };
     return (
-        <View style={{ height: 45, margin: 5, color: 'black',width:width }}>
+        <View style={{ height: 45, margin: 5, color: 'black', width: width }}>
             <GooglePlacesAutocomplete
                 placeholder={placeholder}
                 fetchDetails={true}
                 textInputProps={{
-                    placeholderTextColor: 'gray'
+                    placeholderTextColor: 'gray',
+                    value : desc,
+                    onChangeText : (v)=>setDesc(v)
                 }}
-                onPress={(data, details = null) => {
+                onPress={(data, details) => {
                     // 'details' is provided when fetchDetails = true
-                    console.log(data, details);
+                    console.log('PRESSED',{data}, details);
+                    setDesc(data.description)
+                    if (stops !== undefined && setStops !== undefined) {
+                        handlePlaceSelected(data);
+                    }
                 }}
                 query={{
                     key: 'AIzaSyAlEujvNEFTFUBtG9363FjtK-3YOLAUSfM',
@@ -56,17 +71,17 @@ const PlacesAutoComplete = (props) => {
                         backgroundColor: 'white',
                         zIndex: 500,
                         color: 'black',
-                        width : '100%'
+                        width: '100%'
                     },
                     listView: {
-                        height : 500,
-                        overflow : 'scroll',
+                        height: 500,
+                        overflow: 'scroll',
                         position: 'absolute',
                         top: 50,
                         left: 0,
                         zIndex: 500,
                         color: 'black',
-                        width : '100%'
+                        width: '100%'
                     },
 
 
@@ -81,7 +96,7 @@ const styles = StyleSheet.create({
         color: 'black',
         backgroundColor: 'white',
         zIndex: 2,
-        width : '100%'
+        width: '100%'
     },
     listItemText: {
         color: 'black'

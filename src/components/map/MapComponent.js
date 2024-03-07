@@ -30,8 +30,8 @@ const MapComponent = () => {
                 initialRegion={{
                     latitude: 37.78825,
                     longitude: -122.4324,
-                    latitudeDelta: 0.6,
-                    longitudeDelta: 0.5,
+                    latitudeDelta: 1,
+                    longitudeDelta: 1,
                 }}
                 onMapReady={onMapReady}
             >
@@ -42,21 +42,17 @@ const MapComponent = () => {
 
                     style={{ height: 10, width: 1 }}
                 />
-                <Marker
-                    coordinate={{ latitude: 39.78825, longitude: -122.4324 }}
-                    title="Initial Title"
-                    description="Marker Description"
-
-                    style={{ height: 10, width: 1 }}
-                />
+               
             </MapView>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    container:{
+    },
     map:{
-        height:580,
+        height:450,
     }
 });
 

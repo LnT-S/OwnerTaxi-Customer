@@ -38,7 +38,7 @@ const Header = (props) => {
                 </View>
                 <View style={styles.right}>
                     {(showMessageIcon === undefined || showMessageIcon === true) ? <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.navigate('Message')}>
-                        <Icon name="chat-bubble" size={26} color="black" style={headerTextStyles} />
+                        <Icon name="message" size={26} color="black" style={headerTextStyles} />
                     </TouchableOpacity> : ''}
                     {(showNotification === undefined || showNotification === true) ? <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.navigate('Notification')}>
                         <Icon name="notifications" size={26} color="black" style={headerTextStyles} />

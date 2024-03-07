@@ -72,200 +72,183 @@ const Rental = () => {
         setPermanentCost(item.permanentCost)
         setExtraDis(item.extraDistance)
         setExtraHr(item.extraHour)
-        console.log("lovehical choosen", item.name)
     }
 
     return (
         <AuthenticatedLayout
-            title={'Rental Form'}
+            title={'Rental'}
             showFooter={false}
         >
-            <ScrollView style={{ flex: 1, backgroundColor: ScreenColor }}
+            <ScrollView style={{ flex: 1, backgroundColor: ScreenColor, paddingVertical: 20 }}
                 nestedScrollEnabled={true}
                 contentContainerStyle={{ flexGrow: 1 }}
                 keyboardShouldPersistTaps="true"
             >
-                <View>
 
-                    {/*Pick up*/}
-                    <View style={styles.pickUpContainer}>
-                        <View>
-                            <Text style={styles.text}>
-                                Pickup Location
-                            </Text>
-                        </View>
-                        <View style={{ ...styles.LocationInput, zIndex: 3 }}>
-                            <Icon name="location-on" size={24} color="black" style={styles.Timeicon} />
-                            <PlacesAutoComplete placeholder={'Pickup Location'} width={'85%'} />
-                        </View>
-                    </View>
-                    {/*Drop*/}
+                {/*Pick up*/}
+                <View style={styles.pickUpContainer}>
                     <View>
-                        <View>
-                            <Text style={styles.text}>
-                                Drop Location
-                            </Text>
-                        </View>
-                        <View style={{ ...styles.LocationInput, zIndex: 2 }}>
-                            <Icon name="location-on" size={24} color="black" style={styles.Timeicon} />
-                            <PlacesAutoComplete placeholder={'Drop Location'} width={'85%'} />
-                        </View>
+                        <Text style={styles.text}>
+                            Pickup Location
+                        </Text>
                     </View>
-                    {/*Select Time*/}
-                    <View>
-                        {/*Time Heading*/}
-                        <View>
-                            <Text style={styles.text}>Select Time</Text>
-                        </View>
-                        {/*Timming*/}
-                        <View style={styles.TimeBottons}>
-                            <TouchableOpacity style={[styles.textInput, { marginRight: 5 }]} onPress={() => setShowDatePicker(true)}>
-                                <Icon name="date-range" size={24} color="black" style={styles.Timeicon} />
-                                <Text
-                                    style={styles.Timeinput}
-                                >{dateSelected.toDateString()}</Text>
-                            </TouchableOpacity>
-                            {showDatePicker && <DatePicker
-                                initialDate={dateSelected}
-                                setSelectedDate={setDateSelected}
-                                setShowDatePicker={setShowDatePicker}
-                                mode='date'
-                            />}
-                            <TouchableOpacity style={styles.textInput} onPress={() => setShowTimePicker(true)}>
-                                <Icon name="alarm" size={24} color="black" style={styles.Timeicon} />
-                                <Text
-                                    style={styles.Timeinput}
-                                >{timeSelected.toLocaleTimeString()}</Text>
-                            </TouchableOpacity>
-                            {showTimePicker && <DatePicker
-                                initialDate={timeSelected}
-                                setSelectedDate={setTimeSelected}
-                                setShowDatePicker={setShowTimePicker}
-                                mode='time'
-                            />}
-                        </View>
+                    <View style={{ ...styles.LocationInput, zIndex: 3 }}>
+                        <Icon name="location-on" size={24} color="black" style={styles.Timeicon} />
+                        <PlacesAutoComplete placeholder={'Pickup Location'} width={'85%'} />
                     </View>
-                    {/*Description*/}
+                </View>
+                {/*Drop*/}
+                <View style={styles.marginContainer}>
                     <View>
-                        <View>
-                            <Text style={styles.text}>
-                                Description
-                            </Text>
-                        </View>
-                        <View style={styles.DescriptionInput}>
-                            <TextInput
-                                placeholder="Description"
-                                multiline={true}
-                                numberOfLines={4}
-                                textAlignVertical="top"
-                                placeholderTextColor={'gray'}
-                                style={{ fontSize: 16 }}
-                            />
-                        </View>
+                        <Text style={styles.text}>
+                            Drop Location
+                        </Text>
                     </View>
-                    {/*Choose Vehical*/}
-                    <View>
-                        <View>
-                            <Text style={styles.text}>Choose Vehicle Type</Text>
-                        </View>
-                        {/*Vehical*/}
-                        <View>
-                            <FlatList
-                                style={{}}
-                                keyExtractor={(item, index) => (index)}
-                                data={VehicleArray}
-                                horizontal
-                                renderItem={({ item, index }) => {
-                                    return <TouchableOpacity onPress={() => handleVehicleType(item, index)}>
-                                        <View style={styles.vehicleImageContainer}>
-                                            <View style={[styles.vehicleImage, (isPressed.state && isPressed.index === index) ? styles.bgcolor : '']}>
-                                                <Icon name="directions-car" size={30} color="#000" />
-                                            </View>
-                                            <View style={styles.vehicleName}>
-                                                <Text style={styles.nameText}>
-                                                    {item.type}
-                                                </Text>
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                }}
-                            />
-                        </View>
-                        {/*Vehical Type*/}
-                        <View>
-                            {carSpecificArray.length != 0 ? <FlatList
-                                style={{}}
-                                keyExtractor={(item, index) => (index)}
-                                data={carSpecificArray}
-                                horizontal
-                                renderItem={({ item }) => {
-                                    return <TouchableOpacity onPress={() => handleVehicleType(item)}>
-                                        <View style={styles.vehicleImageContainer}>
-                                            <View style={[styles.vehicleImage]}>
-                                                <Icon name="directions-car" size={30} color="#000" />
-                                            </View>
-                                            <View style={styles.vehicleName}>
-                                                <Text style={styles.nameText}>
-                                                    {item}
-                                                </Text>
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                }}
-                            /> : ''}
-                        </View>
+                    <View style={{ ...styles.LocationInput, zIndex: 2 }}>
+                        <Icon name="location-on" size={24} color="black" style={styles.Timeicon} />
+                        <PlacesAutoComplete placeholder={'Drop Location'} width={'85%'} />
                     </View>
-                    {/* distance array */}
+                </View>
+                {/*Select Time*/}
+                <View style={styles.marginContainer}>
+                    {/*Time Heading*/}
                     <View>
-                        <View>
-                            <Text style={styles.text}>Select Package</Text>
-                        </View>
+                        <Text style={styles.text}>Select Time</Text>
+                    </View>
+                    {/*Timming*/}
+                    <View style={styles.TimeBottons}>
+                        <TouchableOpacity style={[styles.textInput, { marginRight: 5 }]} onPress={() => setShowDatePicker(true)}>
+                            <Icon name="date-range" size={24} color="black" style={styles.Timeicon} />
+                            <Text
+                                style={styles.Timeinput}
+                            >{dateSelected.toDateString()}</Text>
+                        </TouchableOpacity>
+                        {showDatePicker && <DatePicker
+                            initialDate={dateSelected}
+                            setSelectedDate={setDateSelected}
+                            setShowDatePicker={setShowDatePicker}
+                            mode='date'
+                        />}
+                        <TouchableOpacity style={styles.textInput} onPress={() => setShowTimePicker(true)}>
+                            <Icon name="alarm" size={24} color="black" style={styles.Timeicon} />
+                            <Text
+                                style={styles.Timeinput}
+                            >{timeSelected.toLocaleTimeString()}</Text>
+                        </TouchableOpacity>
+                        {showTimePicker && <DatePicker
+                            initialDate={timeSelected}
+                            setSelectedDate={setTimeSelected}
+                            setShowDatePicker={setShowTimePicker}
+                            mode='time'
+                        />}
+                    </View>
+                </View>
+
+                {/*Choose Vehical*/}
+                <View style={styles.marginContainer}>
+                    <View>
+                        <Text style={styles.text}>Choose Vehicle Type</Text>
+                    </View>
+                    {/*Vehical*/}
+                    <View>
                         <FlatList
                             style={{}}
                             keyExtractor={(item, index) => (index)}
-                            data={DistanceArray}
+                            data={VehicleArray}
                             horizontal
                             renderItem={({ item, index }) => {
-                                return <TouchableOpacity onPress={() => handleDistance(item, index)}>
-                                    <View style={styles.DistanceContainer}>
-                                        <View style={[styles.distanceImage, (isPressed.state && isPressed.index === index) ? styles.bgcolor : '']}>
-                                            <Text style={styles.disText}>{item.time} {item.timeFormat}</Text>
-                                            <Text style={styles.disText}>{item.distance} Km</Text>
+                                return <TouchableOpacity onPress={() => handleVehicleType(item, index)}>
+                                    <View style={styles.vehicleImageContainer}>
+                                        <View style={[styles.vehicleImage, (isPressed.state && isPressed.index === index) ? styles.bgcolor : '']}>
+                                            <Icon name="directions-car" size={30} color="#000" />
+                                        </View>
+                                        <View style={styles.vehicleName}>
+                                            <Text style={styles.nameText}>
+                                                {item.type}
+                                            </Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
                             }}
                         />
-                        {(permanentCost !== '') ?
-                            <View>
-                                <View>
-                                    <Text style={styles.Packagetext}>Permanent Cost: {permanentCost}</Text>
-                                </View>
-                                <View>
-                                    <Text style={styles.Packagetext}>Extra Distance: {extraDis}</Text>
-                                </View>
-                                <View>
-                                    <Text style={styles.Packagetext}>Extra Hour: {extraHr}</Text>
-                                </View>
-                            </View> : ''
-                        }
-
                     </View>
-                    {/*Budget*/}
+                    {/*Vehical Type*/}
+                    <View style={styles.marginContainer}>
+                        {carSpecificArray.length != 0 ? <FlatList
+                            style={{}}
+                            keyExtractor={(item, index) => (index)}
+                            data={carSpecificArray}
+                            horizontal
+                            renderItem={({ item }) => {
+                                return <TouchableOpacity>
+                                    <View style={styles.vehicleImageContainer}>
+                                        <View style={[styles.vehicleImage]}>
+                                            <Icon name="directions-car" size={30} color="#000" />
+                                        </View>
+                                        <View style={styles.vehicleName}>
+                                            <Text style={styles.nameText}>
+                                                {item}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            }}
+                        /> : ''}
+                    </View>
+                </View>
+                {/* distance array */}
+                <View style={styles.marginContainer}>
                     <View>
+                        <Text style={styles.text}>Select Package</Text>
+                    </View>
+                    <FlatList
+                        style={{}}
+                        keyExtractor={(item, index) => (index)}
+                        data={DistanceArray}
+                        horizontal
+                        renderItem={({ item, index }) => {
+                            return <TouchableOpacity onPress={() => handleDistance(item, index)}>
+                                <View style={styles.DistanceContainer}>
+                                    <View style={[styles.distanceImage, (isdisPressed.state && isdisPressed.index === index) ? styles.bgcolor : '']}>
+                                        <Text style={styles.disText}>{item.time} {item.timeFormat}</Text>
+                                        <Text style={styles.disText}>{item.distance} Km</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        }}
+                    />
+                    {(permanentCost !== '') ?
                         <View>
-                            <Text style={styles.text}>Budget</Text>
-                        </View>
+                            <View>
+                                <Text style={styles.Packagetext}>Permanent Cost: {permanentCost}</Text>
+                            </View>
+                            <View>
+                                <Text style={styles.Packagetext}>Extra Distance: {extraDis}</Text>
+                            </View>
+                            <View>
+                                <Text style={styles.Packagetext}>Extra Hour: {extraHr}</Text>
+                            </View>
+                        </View> : ''
+                    }
+
+                </View>
+                {/*Budget*/}
+                <View style={styles.marginContainer}>
+                    <View>
+                        <Text style={styles.text}>Budget</Text>
+                    </View>
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <TextInput
                             style={styles.textInput}
                             placeholder="Enter Amount"
                             keyboardType="numeric"
+                            placeholderTextColor={'gray'}
                         />
                     </View>
-                    {/*Submit*/}
-                    <View style={styles.buttons}>
-                        <Buttons name="SUBMIT" style={{ width: '90%' }} />
-                    </View>
+                </View>
+                {/*Submit*/}
+                <View style={styles.buttons}>
+                    <Buttons name="SUBMIT" style={{ width: '90%' }} />
                 </View>
             </ScrollView>
         </AuthenticatedLayout>
@@ -293,6 +276,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 16,
         padding: 0,
+        color: 'black'
     },
     text: {
         fontSize: 16,
@@ -301,12 +285,12 @@ const styles = StyleSheet.create({
         margin: 5,
         paddingLeft: 5
     },
-    Packagetext:{
-        fontSize: 16,
+    Packagetext: {
+        fontSize: 20,
         fontWeight: '800',
-        color: 'red',
+        color: 'green',
         paddingLeft: 5,
-        textDecorationLine: 'underline'
+        margin:5
     },
     LocationInput: {
         display: 'flex',
@@ -319,7 +303,7 @@ const styles = StyleSheet.create({
     textInput: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: '100%',
+        width: '95%',
         height: getResponsiveValue(70, 50),
         paddingHorizontal: 10,
         position: 'relative',
@@ -385,7 +369,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 10
+        marginVertical: 10,
+        marginBottom: 30
     },
     TimeBottons: {
         display: 'flex',
@@ -393,6 +378,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginVertical: 10,
         marginHorizontal: 5
+    },
+    marginContainer: {
+        margin: 10
     }
 })
 

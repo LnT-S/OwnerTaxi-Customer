@@ -6,7 +6,7 @@ import PlacesAutoComplete from '../map/PlacesAutoComplete';
 import { BgColor, ScreenColor } from '../../styles/colors';
 import { getResponsiveValue } from '../../styles/responsive';
 import Buttons from '../../adOns/atoms/Buttom';
-import DatePicker from '../../adOns/atoms/DatePicker';
+import MapComponent from '../map/MapComponent';
 
 const LocalForm = function () {
 
@@ -15,10 +15,6 @@ const LocalForm = function () {
         index: -1
     })
     const [carSpecificArray, setCarSpecificArray] = useState([])
-    const [showDatePicker, setShowDatePicker] = useState(false)
-    const [showTimePicker, setShowTimePicker] = useState(false)
-    const [dateSelected, setDateSelected] = useState(new Date())
-    const [timeSelected, setTimeSelected] = useState(new Date())
 
     const VehicleArray = [
         {
@@ -47,73 +43,41 @@ const LocalForm = function () {
             title={'Local Form'}
             showFooter={false}
         >
-            <ScrollView style={{ flex: 1, backgroundColor: ScreenColor }}
+            <ScrollView style={{ flex: 1, backgroundColor: ScreenColor ,paddingHorizontal: 10}}
                 nestedScrollEnabled={true}
                 contentContainerStyle={{ flexGrow: 1 }}
                 keyboardShouldPersistTaps="true"
             >
-                <View style={styles.MainContainer}>
-                <View style={styles.mapContainer}>
-                <View style={styles.addressContainer}>
-                    <View style={styles.icon}>
-                        <View style={styles.iconContainer}>
-                            <Icon name="location-on" size={24} color="green" />
-                        </View>
-                        <View style={styles.dottedLine}>
-                            {[...Array(10)].map((_, index) => (
-                                <Icon key={index} name="lens" size={4} color="gray" />
-                            ))}
-                        </View>
-                        <View style={styles.iconContainer}>
-                            <Icon name="location-on" size={24} color="red" />
+                <View>
+                    <View style={styles.mapContainer}>
+                        <MapComponent />
+                        <View style={styles.addressContainer}>
+                            <View style={styles.icon}>
+                                <View style={styles.iconContainer}>
+                                    <Icon name="location-on" size={24} color="green" />
+                                </View>
+                                <View style={styles.dottedLine}>
+                                    {[...Array(10)].map((_, index) => (
+                                        <Icon key={index} name="lens" size={4} color="gray" />
+                                    ))}
+                                </View>
+                                <View style={styles.iconContainer}>
+                                    <Icon name="location-on" size={24} color="red" />
+                                </View>
+                            </View>
+                            <View style={styles.addressInput}>
+                                <View><Text style={styles.text}>Pickup Location</Text></View>
+                                <View style={styles.pickupCnontainer}>
+                                    <PlacesAutoComplete placeholder={'Enter Your Pickup Location'} />
+                                </View>
+                                <View><Text style={styles.text}>Drop Location</Text></View>
+                                <View style={styles.dropContainer}>
+                                    <PlacesAutoComplete placeholder={'Destination'} />
+                                </View>
+                            </View>
                         </View>
                     </View>
-                    <View style={styles.addressInput}>
-                        <View><Text style={styles.text}>Pickup Location</Text></View>
-                        <View style={styles.pickupCnontainer}>
-                            <PlacesAutoComplete placeholder={'Enter Your Pickup Location'} />
-                        </View>
-                        <View><Text style={styles.text}>Drop Location</Text></View>
-                        <View style={styles.dropContainer}>
-                            <PlacesAutoComplete placeholder={'Destination'} />
-                        </View>
-                    </View>
-                </View>
-            </View>
-                   {/*Select Time*/}
-                   <View>
-                   {/*Time Heading*/}
-                   <View>
-                       <Text style={styles.text}>Select Time</Text>
-                   </View>
-                   {/*Timming*/}
-                   <View style={styles.TimeBottons}>
-                       <TouchableOpacity style={[styles.textInput, { marginRight: 5 }]} onPress={() => setShowDatePicker(true)}>
-                           <Icon name="date-range" size={24} color="black" style={styles.Timeicon} />
-                           <Text
-                               style={styles.Timeinput}       
-                           >{dateSelected.toDateString()}</Text>
-                       </TouchableOpacity>
-                       {showDatePicker && <DatePicker
-                           initialDate={dateSelected}
-                           setSelectedDate={setDateSelected}
-                           setShowDatePicker={setShowDatePicker}
-                           mode='date'
-                       />}
-                       <TouchableOpacity style={styles.textInput} onPress={() => setShowTimePicker(true)}>
-                           <Icon name="alarm" size={24} color="black" style={styles.Timeicon} />
-                           <Text
-                               style={styles.Timeinput}       
-                           >{timeSelected.toLocaleTimeString()}</Text>
-                       </TouchableOpacity>
-                       {showTimePicker && <DatePicker
-                           initialDate={timeSelected}
-                           setSelectedDate={setTimeSelected}
-                           setShowDatePicker={setShowTimePicker}
-                           mode='time'
-                       />}
-                   </View>
-               </View>
+                   
                     {/*Choose Vehical*/}
                     <View>
                         <View>
@@ -166,21 +130,24 @@ const LocalForm = function () {
                             /> : ''}
                         </View>
                     </View>
+                    
                     {/*Budget*/}
                     <View>
                         <View>
                             <Text style={styles.text}>Budget</Text>
                         </View>
+                        <View style={{justifyContent: 'center',alignItems:'center'}}>
                         <TextInput
-                            style={styles.textInput}
-                            placeholder="Enter Amount"
-                            keyboardType="numeric"
+                        style={styles.textInput}
+                        placeholder="Enter Amount"
+                        keyboardType="numeric"
+                        placeholderTextColor={'gray'}
                         />
+                        </View>
                     </View>
                     {/*Submit*/}
                     <View style={styles.buttons}>
-                        <Buttons name="Schedule A Ride" style={{width: '50%'}}/>
-                        <Buttons name="Book Now" style={{width: '45%'}} />
+                        <Buttons name="SUBMIT" style={{ width: '90%' }} />
                     </View>
                 </View>
             </ScrollView>
@@ -190,7 +157,7 @@ const LocalForm = function () {
 
 const styles = StyleSheet.create({
     mapContainer: {
-        height: 350,
+        height: 450,
         position: 'relative',
         backgroundColor: 'white',
     },
@@ -204,11 +171,11 @@ const styles = StyleSheet.create({
         width: '95%',
         position: 'absolute',
         top: 10,
-        borderWidth: 2,
         flexDirection: 'row',
         marginHorizontal: 10,
         backgroundColor: ScreenColor,
         paddingBottom: 10,
+        opacity: 0.8
     },
     iconContainer: {
         flexDirection: 'row',
@@ -247,17 +214,17 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     text: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: '800',
         color: 'black',
-        margin: 5,
+        margin: 10,
         paddingLeft: 5
     },
-  
+
     textInput: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: '100%',
+        width: '95%',
         height: getResponsiveValue(70, 50),
         paddingHorizontal: 10,
         position: 'relative',
@@ -266,7 +233,7 @@ const styles = StyleSheet.create({
         color: 'black',
         backgroundColor: `white`,
     },
-  
+
     vehicleImageContainer: {
         margin: 5,
         marginHorizontal: 12,
@@ -280,7 +247,7 @@ const styles = StyleSheet.create({
         borderColor: BgColor
 
     },
- 
+
     nameText: {
         fontSize: 12,
         fontWeight: '500',
@@ -290,10 +257,10 @@ const styles = StyleSheet.create({
         backgroundColor: BgColor
     },
     buttons: {
-        display:'flex',
-        flexDirection:'row',
-        justifyContent: 'space-between',
-        marginVertical:10
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginVertical: 10
     },
     TimeBottons: {
         display: 'flex',
