@@ -44,7 +44,7 @@ const MapComponent = () => {
 
         // Fit the map to the provided coordinates
         mapViewRef.current.fitToCoordinates(coordinates, {
-            edgePadding: { top: 80, right: 50, bottom: 50, left: 50 },
+            edgePadding: { top: 150, right: 50, left: 50 },
             animated: true,
         });
     };
