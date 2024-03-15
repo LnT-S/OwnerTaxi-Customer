@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     fontWeight: '800',
-    padding:5,
+    padding:15,
     textDecorationLine: 'underline'
   }
 })
