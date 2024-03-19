@@ -13,17 +13,34 @@ const HomePage = () => {
 
     const TourPackage = [
         {
-            image: require('../../assets/imgaes/intercity.jpeg'),
+            image: require('../../assets/imgaes/IntercityTour.jpeg'),
             name: 'Tour Name'
         },
         {
-            image: require('../../assets/imgaes/local.png'),
+            image: require('../../assets/imgaes/Local.jpg'),
             name: 'Tour Name'
         },
         {
-            image: require('../../assets/imgaes/intercity.jpeg'),
+            image: require('../../assets/imgaes/Tour.png'),
             name: 'Tour Name'
         },
+        {
+            image: require('../../assets/imgaes/Tour.png'),
+            name: 'Tour Name'
+        },
+        {
+            image: require('../../assets/imgaes/Local.jpg'),
+            name: 'Tour Name'
+        },
+        {
+            image: require('../../assets/imgaes/Local.jpg'),
+            name: 'Tour Name'
+        },
+        {
+            image: require('../../assets/imgaes/IntercityTour.jpeg'),
+            name: 'Tour Name'
+        },
+      
     ]
     const Services = [
         {
@@ -76,11 +93,12 @@ const HomePage = () => {
                 {/**Welcome */}
                 <View style={styles.container}>
                     <Image
-                        source={require('../../assets/imgaes/Taxilogo.png')}
+                        source={require('../../assets/imgaes/DriverAppLogo.png')}
                         style={[styles.image]}
                     />
-                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={styles.weltext}>Welcome</Text>
+                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' ,flexDirection: 'row',margin:15}}>
+                        <Text style={styles.weltext}>Welcome, </Text>
+                        <Text style={styles.usertext}>User Name</Text>
                     </View>
                 </View>
                 <View style={styles.suggestionContainer}>
@@ -98,7 +116,7 @@ const HomePage = () => {
                         renderItem={({ item, index }) => {
                             return <TouchableOpacity style={{ margin: 10 }}>
                                 <Image source={item.image}
-                                    style={{ width: 150, height: 150, borderRadius: 10 }}  onPress={()=>handleNavigationServices(item.name)}/>
+                                    style={{ width: 75, height: 80, borderRadius: 10 }}  onPress={()=>handleNavigationServices(item.name)}/>
                                 <Text style={styles.suggestionText}>{item.name}</Text>
                             </TouchableOpacity>
                         }}
@@ -108,19 +126,17 @@ const HomePage = () => {
                 <View style={styles.TourPacContainer}>
                     <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', marginHorizontal: 10 }}>
                         <Text style={styles.suggestiontext}>Tour Packages</Text>
-                        <TouchableOpacity>
-                            <Text style={styles.seetext}>See All</Text>
-                        </TouchableOpacity>
+                       
                     </View>
                     <FlatList
                         style={{ marginHorizontal: 10 }}
                         keyExtractor={(item, index) => (index)}
                         data={TourPackage}
-                        horizontal
+                        
                         renderItem={({ item, index }) => {
                             return <TouchableOpacity style={{ margin: 10 }}>
                                 <View style={styles.vehicleImage}>
-                                    <Image source={item.image} style={{ width: 250, height: 200, borderRadius: 10 }} />
+                                    <Image source={item.image} style={{ width: 170, height: 150, borderRadius: 10 }} />
                                     <TouchableOpacity style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                                         <Text style={styles.tourText}>
                                             {`${item.name}`}
@@ -130,6 +146,7 @@ const HomePage = () => {
                                 </View>
                             </TouchableOpacity>
                         }}
+                        numColumns={2}
                     />
                 </View>
             </ScrollView>
@@ -140,7 +157,7 @@ const HomePage = () => {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        backgroundColor: ScreenColor,
+        backgroundColor: BgColor,
     },
 
     TourPacContainer: {
@@ -160,20 +177,26 @@ marginBottom:10
         textAlign: 'center'
     },
     container: {
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
         alignItems: 'center',
     },
     image: {
-        width: 150,
+        width: 250,
         height: 150,
     },
     weltext: {
         color: 'black',
         fontSize: 28,
-        fontWeight: '800',
+        fontWeight: '500',
         textAlign: 'center',
         fontStyle: 'normal',
+        textTransform: 'uppercase',
+    },
+    usertext: {
+        color: 'black',
+        fontSize: 28,
+        fontWeight: '800',
+        textAlign: 'center',
+        fontStyle: 'italic',
         textTransform: 'uppercase',
     },
     text: {

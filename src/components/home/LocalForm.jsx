@@ -14,26 +14,28 @@ const LocalForm = function () {
         state: false,
         index: -1
     })
-    const [carSpecificArray, setCarSpecificArray] = useState([])
 
     const VehicleArray = [
         {
+            type: 'ato',
+            personCount: 3
+        },
+        {
+            type: 'Mini',
+            personCount: 4
+        },
+        {
             type: 'sedan',
-            specific: ['city', 'verna', 'swift', 'mercedes']
+            personCount: 4
         },
         {
-            type: 'xuv',
-            specific: ['wagonr', 'xuv500', 'defender', 'thar']
+            type: 'SUV',
+            personCount: 6
         },
-        {
-            type: 'abc',
-            specific: ['ab', 'bc', 'cd', 'ef']
-        }
     ]
 
     const handleVehicleType = function (item, index) {
         setisPressed({ state: true, index: index })
-        setCarSpecificArray(item.specific)
         console.log("vehical choose", item.name)
     }
 
@@ -91,7 +93,7 @@ const LocalForm = function () {
                                 data={VehicleArray}
                                 horizontal
                                 renderItem={({ item, index }) => {
-                                    return <TouchableOpacity onPress={() => handleVehicleType(item, index)}>
+                                    return <TouchableOpacity onPress={()=>handleVehicleType(item,index)}>
                                         <View style={styles.vehicleImageContainer}>
                                             <View style={[styles.vehicleImage, (isPressed.state && isPressed.index === index) ? styles.bgcolor : '']}>
                                                 <Icon name="directions-car" size={30} color="#000" />
@@ -100,35 +102,16 @@ const LocalForm = function () {
                                                 <Text style={styles.nameText}>
                                                     {item.type}
                                                 </Text>
+                                                <Text style={styles.nameText}>
+                                                {item.personCount} + 1
+                                            </Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>
                                 }}
                             />
                         </View>
-                        {/*Vehical Type*/}
-                        <View>
-                            {carSpecificArray.length != 0 ? <FlatList
-                                style={{}}
-                                keyExtractor={(item, index) => (index)}
-                                data={carSpecificArray}
-                                horizontal
-                                renderItem={({ item }) => {
-                                    return <TouchableOpacity onPress={() => handleVehicleType(item)}>
-                                        <View style={styles.vehicleImageContainer}>
-                                            <View style={[styles.vehicleImage]}>
-                                                <Icon name="directions-car" size={30} color="#000" />
-                                            </View>
-                                            <View style={styles.vehicleName}>
-                                                <Text style={styles.nameText}>
-                                                    {item}
-                                                </Text>
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                }}
-                            /> : ''}
-                        </View>
+                       
                     </View>
                     
                     {/*Budget*/}
@@ -249,9 +232,11 @@ const styles = StyleSheet.create({
     },
 
     nameText: {
-        fontSize: 12,
-        fontWeight: '500',
+        fontSize: 20,
+        fontWeight: '600',
         color: 'black',
+        textTransform: 'uppercase',
+        textAlign:'center'
     },
     bgcolor: {
         backgroundColor: BgColor

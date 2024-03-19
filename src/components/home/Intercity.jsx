@@ -8,6 +8,7 @@ import { getResponsiveValue } from '../../styles/responsive';
 import Buttons from '../../adOns/atoms/Buttom';
 import TwoWayPushButton from '../../adOns/molecules/TwoWayPushButton';
 import DatePicker from '../../adOns/atoms/DatePicker';
+import ExtrasFormComponent from '../../adOns/molecules/extrasFormComponent';
 
 
 const Intercity = () => {
@@ -40,7 +41,11 @@ const Intercity = () => {
             specific: ['ab', 'bc', 'cd', 'ef']
         }
     ]
-
+    const extrasArray = {
+        extraDistance: 9.07,
+        extraHour: 2.65
+    }
+    const { extraDistance, extraHour } = extrasArray;
     const handleVehicleType = function (item, index) {
         setisPressed({ state: true, index: index })
         setCarSpecificArray(item.specific)
@@ -281,6 +286,16 @@ const Intercity = () => {
                             /> : ''}
                         </View>
                     </View>
+                    {/**Package */}
+                    {(selectedOption === 'Round Trip')
+                    ?<View style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <ExtrasFormComponent extraDistance={extraDistance} extraHour={extraHour} />
+                    </View>
+                    :''}
                     {/*Budget*/}
                     <View style={styles.marginContainer}>
                         <View>

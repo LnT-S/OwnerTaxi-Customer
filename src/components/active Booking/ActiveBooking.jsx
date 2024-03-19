@@ -114,17 +114,17 @@ const ActiveBooking = () => {
     ]
     return (
         <AuthenticatedLayout title={'Active Booking'}>
-            <ScrollView style={{ flex: 1, backgroundColor: ScreenColor, height:height}}>
+            <ScrollView style={{ flex: 1, backgroundColor: BgColor, height:height}}>
                 <FlatList
                     keyExtractor={(item, index) => (index)}
                     data={activeBookingArray}
-                    snapToInterval={width-20}
+                    snapToInterval={width}
                     alwaysBounceHorizontal={true}
                     showsHorizontalScrollIndicator={true}
                     decelerationRate='fast'
                     horizontal
                     renderItem={({ item, index }) => {
-                        return <View style={{height:height}}>
+                        return <View>
                             <ActiveCard item={item} />
                         </View>
                     }}

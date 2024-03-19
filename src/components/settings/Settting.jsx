@@ -20,7 +20,7 @@ const Setting = () => {
     <Semicircle item = {profileDetails} editMode={false}/>
       <View style={{flex : 1 ,display : 'flex', flexDirection : 'column',justifyContent : 'space-between' , width : '100%'}}>
         <View style={styles.settingBox}>
-          <TouchableOpacity style={styles.listItem1} onPress = {() => navigation.navigate('profileScreen')}>
+          <TouchableOpacity style={styles.listItem1} onPress = {() => navigation.navigate('MyProfile')}>
             <Icon name="edit" size={30} color="#ffea00" />
             <Text style={styles.text}>Edit Profile</Text>
           </TouchableOpacity>
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     fontWeight: '800',
-    padding:5,
+    padding:15,
     textDecorationLine: 'underline'
   }
 })
