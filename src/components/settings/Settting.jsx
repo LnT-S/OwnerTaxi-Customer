@@ -33,8 +33,8 @@ const Setting = () => {
             <Text style={styles.text}>Log Out</Text>
           </View>
         </View>
-        <TouchableOpacity style={{width : '100%'}}>
-          <Text style={styles.textStyle}>Terms and Conditions</Text>
+        <TouchableOpacity style={{width : '100%'}} onPress={() => {navigation.navigate('Terms')}}>
+          <Text style={styles.textStyle}>Term Of Use</Text>
         </TouchableOpacity>
       </View>
     </AuthenticatedLayout>
