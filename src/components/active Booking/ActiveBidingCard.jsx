@@ -25,6 +25,7 @@ const ActiveCard = (props) => {
     }, [activeItem])
     return (
         <View style={{ flex: 1, backgroundColor:BgColor, margin: 5 }}>
+        
             <View style={{backgroundColor: 'black', display: 'flex', justifyContent: 'space-between' }}>
                 {/**Scheduled on and type */}
                 <View style={styles.schedulecontainer}>
@@ -56,6 +57,7 @@ const ActiveCard = (props) => {
                             <View>
                                 <Text style={styles.scheduleText}>{activeItem.pickUp.time}</Text>
                             </View>
+                            
                         </View>
                         <View style={styles.addType}>
                             <View>

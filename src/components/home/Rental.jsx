@@ -219,13 +219,13 @@ const Rental = () => {
                             </TouchableOpacity>
                         }}
                     />
-                    <View style={{
+                    {/*<View style={{
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}>
                         <ExtrasFormComponent extraDistance={extraDistance} extraHour={extraHour} />
-                    </View>
+                </View>*/}
 
                 </View>
                 {/*Budget*/}
@@ -240,6 +240,40 @@ const Rental = () => {
                             keyboardType="numeric"
                             placeholderTextColor={'gray'}
                         />
+                    </View>
+                </View>
+                {/**Note */}
+                <View style={styles.marginContainer}>
+                    <View>
+                        <Text style={[styles.text, { color: 'red', fontSize: 20 }]}>
+                            Note:
+                        </Text>
+                    </View>
+                    {/**Package}
+                 {(selectedOption === 'Round Trip')
+                     ? <View style={{
+                         display: 'flex',
+                         justifyContent: 'center',
+                         alignItems: 'center'
+                     }}>
+                         <ExtrasFormComponent extraDistance={extraDistance} extraHour={extraHour} />
+                     </View>
+                     : '' */}
+                    <View>
+                        <Text style={[styles.text, { fontSize: 22 }]}>
+                            Extras to be paid by you to driver</Text>
+                    </View>
+                    <View>
+                        <Text style={[styles.text, { fontSize: 18, fontWeight: '500' }]}>Your fare does not include</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.text}>- Parking</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.text}>- Tolls</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.text}>- State entry taxes</Text>
                     </View>
                 </View>
                 {/*Submit*/}

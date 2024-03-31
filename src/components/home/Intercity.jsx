@@ -308,7 +308,7 @@ const Intercity = () => {
                                 Note:
                             </Text>
                         </View>
-                        {/**Package */}
+                        {/**Package}
                         {(selectedOption === 'Round Trip')
                             ? <View style={{
                                 display: 'flex',
@@ -317,7 +317,7 @@ const Intercity = () => {
                             }}>
                                 <ExtrasFormComponent extraDistance={extraDistance} extraHour={extraHour} />
                             </View>
-                            : ''}
+                            : '' */}
                         <View>
                             <Text style={[styles.text, { fontSize: 22 }]}>
                             Extras to be paid by you to driver</Text>

@@ -17,7 +17,7 @@ const LocalForm = function () {
 
     const VehicleArray = [
         {
-            type: 'ato',
+            type: 'auto',
             personCount: 3
         },
         {
