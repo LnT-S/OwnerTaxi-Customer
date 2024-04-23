@@ -23,20 +23,23 @@ const LocalForm = function () {
     const [VehicleArray, setVehicleArray] = useState([
         {
             type: 'auto',
-            personCount: 3
+            capacity: 3
         },
         {
             type: 'Mini',
-            personCount: 4
+            capacity: 4
         },
         {
             type: 'sedan',
+            capacity: 4
         },
         {
             type: 'xuv',
+            capacity: 4
         },
         {
             type: 'abc',
+            capacity: 4
         }
     ])
     const [bookingForm, setBookingForm] = useState(profileState.bookingForm)
@@ -223,7 +226,7 @@ const LocalForm = function () {
                                                     {item.type}
                                                 </Text>
                                                 <Text style={styles.nameText}>
-                                                {item.personCount} + 1
+                                                {item.capacity} + 1
                                             </Text>
                                             </View>
                                         </View>
@@ -266,7 +269,7 @@ const LocalForm = function () {
 
 const styles = StyleSheet.create({
     mapContainer: {
-        height: 550,
+        height: 600,
         position: 'relative',
         backgroundColor: 'white',
     },
@@ -358,8 +361,8 @@ const styles = StyleSheet.create({
     },
 
     nameText: {
-        fontSize: 20,
-        fontWeight: '600',
+        fontSize: 16,
+        fontWeight: '400',
         color: 'black',
         textTransform: 'uppercase',
         textAlign:'center'

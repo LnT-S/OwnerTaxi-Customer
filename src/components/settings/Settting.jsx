@@ -1,39 +1,50 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View , TouchableOpacity, ScrollView} from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import AuthenticatedLayout from '../../screens/layout/AuthenticatedLayout'
 import Semicircle from '../../adOns/atoms/SemiCircle'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import { deleteAccount } from '../../services/apiCall';
+import YesNoModal from '../../adOns/molecules/YesNoModal';
 
 const Setting = () => {
 
   const navigation = useNavigation()
   const profileDetails = {
-    image : '',
+    image: '',
     name: 'Shruti',
     phoneNumber: '1234567891',
     email: ''
   }
 
+  const handleDelete = () => {
+    console.log("DELETE PRESSED")
+    deleteAccount().then(data => {
+      console.log(data)
+    }).catch(error => {
+      console.log("ERROR DELETING ACCOUNCT",error)
+    })
+  }
+
   return (
     <AuthenticatedLayout title={'Setting'}>
-    <Semicircle item = {profileDetails} editMode={false}/>
-      <View style={{flex : 0.9 ,display : 'flex', flexDirection : 'column',justifyContent : 'space-between' , width : '100%'}}>
+      <Semicircle item={profileDetails} editMode={false} />
+      <View style={{ flex: 0.9, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%' }}>
         <View style={styles.settingBox}>
-          <TouchableOpacity style={styles.listItem1} onPress = {() => navigation.navigate('MyProfile')}>
+          <TouchableOpacity style={styles.listItem1} onPress={() => navigation.navigate('MyProfile')}>
             <Icon name="edit" size={30} color="#ffea00" />
             <Text style={styles.text}>Edit Profile</Text>
           </TouchableOpacity>
-          <View style={styles.listItem1}>
+          <TouchableOpacity style={styles.listItem1} onPress={handleDelete}>
             <Icon name="delete" size={30} color="#ffea00" />
             <Text style={styles.text}>Delete My Account</Text>
-          </View>
+          </TouchableOpacity>
           <View style={styles.listItem2}>
             <Icon name="exit-to-app" size={30} color="#ffea00" />
             <Text style={styles.text}>Log Out</Text>
           </View>
         </View>
-        <TouchableOpacity style={{width : '100%'}} onPress={() => {navigation.navigate('Terms')}}>
+        <TouchableOpacity style={{ width: '100%' }} onPress={() => { navigation.navigate('Terms') }}>
           <Text style={styles.textStyle}>Term Of Use</Text>
         </TouchableOpacity>
       </View>
@@ -69,12 +80,12 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     padding: 5
   },
-  textStyle:{
+  textStyle: {
     textAlign: 'center',
     color: 'black',
     fontSize: 18,
     fontWeight: '800',
-    padding:15,
+    padding: 15,
     textDecorationLine: 'underline'
   }
 })

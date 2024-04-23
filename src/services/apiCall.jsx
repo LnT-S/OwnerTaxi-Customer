@@ -62,3 +62,20 @@ export const localBooking = async (formData) => {
     console.log('DATA RECIVED ', data)
     return { status: res.status, data: data }
 }
+export const deleteAccount = async () => {
+    const URL = `${server.server}/authentication/delete-account`
+    console.log('URL ', URL)
+    let auth_token = await AsyncStorage.getItem('token')
+
+    let res = await fetch(URL, {
+        method: 'get',
+        mode: 'cors',
+        headers: {
+            'Authorization': auth_token ? `Bearer ${auth_token}` : '',
+            'Content-Type': 'application/json',
+        }
+    })
+    let data = await res.json()
+    console.log('DATA RECIVED ', data)
+    return { status: res.status, data: data }
+}

@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   map: {
-    height: 550,
+    height: 600,
   }
 });
 
