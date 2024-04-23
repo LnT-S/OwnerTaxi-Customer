@@ -8,6 +8,7 @@ import { getResponsiveValue } from '../../styles/responsive';
 import Buttons from '../../adOns/atoms/Buttom';
 import TwoWayPushButton from '../../adOns/molecules/TwoWayPushButton';
 import DatePicker from '../../adOns/atoms/DatePicker';
+import ExtrasFormComponent from '../../adOns/molecules/extrasFormComponent';
 
 
 const Intercity = () => {
@@ -40,7 +41,11 @@ const Intercity = () => {
             specific: ['ab', 'bc', 'cd', 'ef']
         }
     ]
-
+    const extrasArray = {
+        extraDistance: 9.07,
+        extraHour: 2.65
+    }
+    const { extraDistance, extraHour } = extrasArray;
     const handleVehicleType = function (item, index) {
         setisPressed({ state: true, index: index })
         setCarSpecificArray(item.specific)
@@ -113,8 +118,8 @@ const Intercity = () => {
                         : ''}
                     {/**Add Points if Round Trip */}
                     {(selectedOption === 'Round Trip')
-                        ? <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'flex-end', margin: 10 }} onPress={handlePoints}>
-                            <Text style={{ color: 'black', fontSize: 16, fontWeight: '500', }}>Add Stop</Text>
+                        ? <TouchableOpacity style={{ justifyContent: 'center', margin: 10 ,marginLeft: 50,backgroundColor: 'white',width:100,padding: 5}} onPress={handlePoints}>
+                            <Text style={{ color: 'black', fontSize: 16, fontWeight: '500', }}>+ Add Stop</Text>
                         </TouchableOpacity>
                         : ''}
                     {/*Drop*/}
@@ -281,6 +286,7 @@ const Intercity = () => {
                             /> : ''}
                         </View>
                     </View>
+
                     {/*Budget*/}
                     <View style={styles.marginContainer}>
                         <View>
@@ -298,15 +304,26 @@ const Intercity = () => {
                     {/**Note */}
                     <View style={styles.marginContainer}>
                         <View>
-                            <Text style={[styles.text,{color:'red'}]}>
+                            <Text style={[styles.text, { color: 'red',fontSize: 20 }]}>
                                 Note:
                             </Text>
                         </View>
+                        {/**Package}
+                        {(selectedOption === 'Round Trip')
+                            ? <View style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                                <ExtrasFormComponent extraDistance={extraDistance} extraHour={extraHour} />
+                            </View>
+                            : '' */}
                         <View>
-                            <Text style={[styles.text,{fontSize: 22}]}>Extras to be paid by you to driver</Text>
+                            <Text style={[styles.text, { fontSize: 22 }]}>
+                            Extras to be paid by you to driver</Text>
                         </View>
                         <View>
-                            <Text style={[styles.text,{fontSize: 20,fontWeight:'500'}]}>Your fare does not include</Text>
+                            <Text style={[styles.text, { fontSize: 18, fontWeight: '500' }]}>Your fare does not include</Text>
                         </View>
                         <View>
                             <Text style={styles.text}>- Parking</Text>
@@ -356,7 +373,7 @@ const styles = StyleSheet.create({
         fontWeight: '800',
         color: 'black',
         margin: 10,
-        paddingLeft: 5
+        paddingLeft: 5,
     },
     LocationInput: {
         display: 'flex',

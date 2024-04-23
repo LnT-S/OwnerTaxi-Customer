@@ -8,6 +8,7 @@ import { getResponsiveValue } from '../../styles/responsive';
 import Buttons from '../../adOns/atoms/Buttom';
 import TwoWayPushButton from '../../adOns/molecules/TwoWayPushButton';
 import DatePicker from '../../adOns/atoms/DatePicker';
+import ExtrasFormComponent from '../../adOns/molecules/extrasFormComponent';
 
 
 const Rental = () => {
@@ -25,9 +26,7 @@ const Rental = () => {
     const [showTimePicker, setShowTimePicker] = useState(false)
     const [dateSelected, setDateSelected] = useState(new Date())
     const [timeSelected, setTimeSelected] = useState(new Date())
-    const [permanentCost, setPermanentCost] = useState('')
-    const [extraDis, setExtraDis] = useState('')
-    const [extraHr, setExtraHr] = useState('')
+
 
     const VehicleArray = [
         {
@@ -62,6 +61,11 @@ const Rental = () => {
             extraHour: 6
         },
     ]
+    const extrasArray = {
+        extraDistance: 9.07,
+        extraHour: 2.65
+    }
+    const { extraDistance, extraHour } = extrasArray;
     const handleVehicleType = function (item, index) {
         setisPressed({ state: true, index: index })
         setCarSpecificArray(item.specific)
@@ -69,9 +73,7 @@ const Rental = () => {
     }
     const handleDistance = function (item, index) {
         setisdisPressed({ state: true, index: index })
-        setPermanentCost(item.permanentCost)
-        setExtraDis(item.extraDistance)
-        setExtraHr(item.extraHour)
+
     }
 
     return (
@@ -217,19 +219,13 @@ const Rental = () => {
                             </TouchableOpacity>
                         }}
                     />
-                    {(permanentCost !== '') ?
-                        <View>
-                            <View>
-                                <Text style={styles.Packagetext}>Permanent Cost: {permanentCost}</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.Packagetext}>Extra Distance: {extraDis}</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.Packagetext}> Hour: {extraHr}</Text>
-                            </View>
-                        </View> : ''
-                    }
+                    {/*<View style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <ExtrasFormComponent extraDistance={extraDistance} extraHour={extraHour} />
+                </View>*/}
 
                 </View>
                 {/*Budget*/}
@@ -244,6 +240,40 @@ const Rental = () => {
                             keyboardType="numeric"
                             placeholderTextColor={'gray'}
                         />
+                    </View>
+                </View>
+                {/**Note */}
+                <View style={styles.marginContainer}>
+                    <View>
+                        <Text style={[styles.text, { color: 'red', fontSize: 20 }]}>
+                            Note:
+                        </Text>
+                    </View>
+                    {/**Package}
+                 {(selectedOption === 'Round Trip')
+                     ? <View style={{
+                         display: 'flex',
+                         justifyContent: 'center',
+                         alignItems: 'center'
+                     }}>
+                         <ExtrasFormComponent extraDistance={extraDistance} extraHour={extraHour} />
+                     </View>
+                     : '' */}
+                    <View>
+                        <Text style={[styles.text, { fontSize: 22 }]}>
+                            Extras to be paid by you to driver</Text>
+                    </View>
+                    <View>
+                        <Text style={[styles.text, { fontSize: 18, fontWeight: '500' }]}>Your fare does not include</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.text}>- Parking</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.text}>- Tolls</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.text}>- State entry taxes</Text>
                     </View>
                 </View>
                 {/*Submit*/}
@@ -290,7 +320,7 @@ const styles = StyleSheet.create({
         fontWeight: '800',
         color: 'green',
         paddingLeft: 5,
-        margin:5
+        margin: 5
     },
     LocationInput: {
         display: 'flex',

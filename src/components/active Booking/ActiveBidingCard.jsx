@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, Text, Linking, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { height } from '../../styles/responsive';
+import { BgColor } from '../../styles/colors';
 
 const ActiveCard = (props) => {
 
@@ -23,7 +24,8 @@ const ActiveCard = (props) => {
 
     }, [activeItem])
     return (
-        <View style={{ flex: 1, backgroundColor: 'red', margin: 5 }}>
+        <View style={{ flex: 1, backgroundColor:BgColor, margin: 5 }}>
+        
             <View style={{backgroundColor: 'black', display: 'flex', justifyContent: 'space-between' }}>
                 {/**Scheduled on and type */}
                 <View style={styles.schedulecontainer}>
@@ -55,6 +57,7 @@ const ActiveCard = (props) => {
                             <View>
                                 <Text style={styles.scheduleText}>{activeItem.pickUp.time}</Text>
                             </View>
+                            
                         </View>
                         <View style={styles.addType}>
                             <View>

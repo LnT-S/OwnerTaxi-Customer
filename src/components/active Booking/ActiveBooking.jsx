@@ -1,7 +1,8 @@
 import React from 'react'
-import { Text, View, FlatList, ScrollView,StyleSheet, StatusBar } from 'react-native'
+import { Text, View, FlatList, ScrollView, StyleSheet, StatusBar } from 'react-native'
 import AuthenticatedLayout from '../../screens/layout/AuthenticatedLayout'
-import ActiveCard from './ActiveCard'
+import ActiveBookingCard from './ActiveBookingCard'
+
 import { BgColor, ScreenColor } from '../../styles/colors'
 import { height, width } from '../../styles/responsive'
 
@@ -42,6 +43,89 @@ const ActiveBooking = () => {
                 amount: 3000,
                 mode: 'cash'
             }
+        },
+        {
+            type: 'Local',
+            subType: '',
+            status: 'Budget Confirmation Pending From your Side',
+            pickUp: {
+                point: 'naveen chowk naveen chowknaveen chowkvvv naveen chowk naveen chowk naveen chowk',
+                time: '02:00'
+            },
+            drop: {
+                point: 'GIC',
+                time: '17:00'
+            },
+            payment: {
+                amount: 3000,
+                mode: 'cash'
+            },
+            driver: [
+                {
+                    image:require('../../assets/imgaes/Profile2.png'),
+                    name: "Nadim",
+                    rating: 4.9,
+                    satisfiedCustomer: 134,
+                    cost: 228,
+                    time: '6 min',
+                    kilometer: '2.8 Km'
+                },
+                {
+                    image:require('../../assets/imgaes/Profile2.png'),
+                    name: "Gajanan",
+                    rating: 5.0,
+                    satisfiedCustomer: 45,
+                    cost: 225,
+                    time: '7 min',
+                    kilometer: '2.7 Km'
+                },
+                {
+                    image:require('../../assets/imgaes/Profile2.png'),
+                    name: "Nadim",
+                    rating: 4.9,
+                    satisfiedCustomer: 134,
+                    cost: 228,
+                    time: '6 min',
+                    kilometer: '2.8 Km'
+                },
+                {
+                    image:require('../../assets/imgaes/Profile2.png'),
+                    name: "Nadim",
+                    rating: 4.9,
+                    satisfiedCustomer: 134,
+                    cost: 228,
+                    time: '6 min',
+                    kilometer: '2.8 Km'
+                },
+                {
+                    image:require('../../assets/imgaes/Profile2.png'),
+                    name: "Nadim",
+                    rating: 4.9,
+                    satisfiedCustomer: 134,
+                    cost: 228,
+                    time: '6 min',
+                    kilometer: '2.8 Km'
+                },
+                {
+                    image:require('../../assets/imgaes/Profile2.png'),
+                    name: "Nadim",
+                    rating: 4.9,
+                    satisfiedCustomer: 134,
+                    cost: 228,
+                    time: '6 min',
+                    kilometer: '2.8 Km'
+                },
+                {
+                    image:require('../../assets/imgaes/Profile2.png'),
+                    name: "Nadim",
+                    rating: 4.9,
+                    satisfiedCustomer: 134,
+                    cost: 228,
+                    time: '6 min',
+                    kilometer: '2.8 Km'
+                },
+              
+            ]
         },
         {
             type: 'Rental',
@@ -114,18 +198,13 @@ const ActiveBooking = () => {
     ]
     return (
         <AuthenticatedLayout title={'Active Booking'}>
-            <ScrollView style={{ flex: 1, backgroundColor: ScreenColor, height:height}}>
+            <ScrollView style={{ flex: 1, backgroundColor: BgColor, height: height,marginBottom: 35 }}>
                 <FlatList
                     keyExtractor={(item, index) => (index)}
                     data={activeBookingArray}
-                    snapToInterval={width-20}
-                    alwaysBounceHorizontal={true}
-                    showsHorizontalScrollIndicator={true}
-                    decelerationRate='fast'
-                    horizontal
                     renderItem={({ item, index }) => {
-                        return <View style={{height:height}}>
-                            <ActiveCard item={item} />
+                        return <View>
+                            <View style={styles.FlatListviewStyle}><ActiveBookingCard item={item} /></View>
                         </View>
                     }}
                 />
@@ -134,7 +213,10 @@ const ActiveBooking = () => {
     )
 }
 const styles = StyleSheet.create({
-    numberText:{
+    FlatListviewStyle: {
+        marginVertical: 5
+    },
+    numberText: {
         fontSize: 18,
         fontWeight: '500',
         color: 'black',

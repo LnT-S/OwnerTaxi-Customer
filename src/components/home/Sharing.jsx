@@ -35,13 +35,15 @@ const Sharing = () => {
             title={'Sharing'}
             showFooter={false}
         >
-            <ScrollView style={{ flex: 1, backgroundColor: ScreenColor , paddingVertical: 40}}
+            <ScrollView style={{ flex: 1, backgroundColor: ScreenColor , paddingVertical: 10}}
                 nestedScrollEnabled={true}
                 contentContainerStyle={{ flexGrow: 1 }}
                 keyboardShouldPersistTaps="true"
             >
                 <View>
-                    
+                <View style={{justifyContent: 'center',alignItems: 'center'}}>
+                <Text style={styles.notetext}>Note: City To City Service</Text>
+                </View>
                     {/*Pick up*/}
                     <View style={styles.marginContainer}>
                         <View>
@@ -168,6 +170,13 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
+        fontWeight: '800',
+        color: 'black',
+        margin: 5,
+        paddingLeft: 5
+    },
+    notetext:{
+        fontSize: 20,
         fontWeight: '800',
         color: 'black',
         margin: 5,

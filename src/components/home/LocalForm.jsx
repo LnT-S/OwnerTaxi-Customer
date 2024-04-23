@@ -22,6 +22,14 @@ const LocalForm = function () {
     const { profileState, profileDispatch } = useProfile()
     const [VehicleArray, setVehicleArray] = useState([
         {
+            type: 'auto',
+            personCount: 3
+        },
+        {
+            type: 'Mini',
+            personCount: 4
+        },
+        {
             type: 'sedan',
         },
         {
@@ -214,6 +222,9 @@ const LocalForm = function () {
                                                 <Text style={styles.nameText}>
                                                     {item.type}
                                                 </Text>
+                                                <Text style={styles.nameText}>
+                                                {item.personCount} + 1
+                                            </Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>
@@ -347,9 +358,11 @@ const styles = StyleSheet.create({
     },
 
     nameText: {
-        fontSize: 12,
-        fontWeight: '500',
+        fontSize: 20,
+        fontWeight: '600',
         color: 'black',
+        textTransform: 'uppercase',
+        textAlign:'center'
     },
     bgcolor: {
         backgroundColor: BgColor

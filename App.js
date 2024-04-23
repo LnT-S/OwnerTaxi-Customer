@@ -49,6 +49,9 @@ import Setting from './src/components/settings/Settting.jsx';
 import Profile from './src/components/profile/Profile';
 import Services from './src/components/services/Services.jsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Terms from './src/components/terms&Condition/terms.jsx';
+import Privacy from './src/components/privacy/Privacy.jsx';
+import BidingPage from './src/components/active Booking/BidingPage.jsx';
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator();
@@ -74,6 +77,12 @@ function DrawerNavigator() {
       <Drawer.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
       <Drawer.Screen name="Services" component={Services} options={{ headerShown: false }} />
       <Drawer.Screen name='SourceDestinationForm' component={SourceDestinationForm} options={{ headerShown: false }}
+    />
+    <Drawer.Screen name='Terms' component={Terms} options={{ headerShown: false }}
+    />
+    <Drawer.Screen name='Privacy' component={Privacy} options={{ headerShown: false }}
+    />
+    <Drawer.Screen name='Bidding' component={BidingPage} options={{ headerShown: false }}
     />
     </Drawer.Navigator>
     </ContextProvider>
