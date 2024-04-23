@@ -48,6 +48,7 @@ import Sharing from './src/components/home/Sharing.jsx';
 import Setting from './src/components/settings/Settting.jsx';
 import Profile from './src/components/profile/Profile';
 import Services from './src/components/services/Services.jsx';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator();
@@ -56,7 +57,8 @@ LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollV
 function DrawerNavigator() {
 
   return (
-    <Drawer.Navigator initialRouteName='Home' drawerContent={(props) => <CustomDrawerContent {...props} />} backBehavior="history">
+    <ContextProvider>
+    <Drawer.Navigator initialRouteName='Home' drawerContent={(props) => <CustomDrawerContent {...props} />} backBehavior="history" detachInactiveScreens={true}>
       <Drawer.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
       <Drawer.Screen name="Local" component={LocalForm} options={{ headerShown: false }} />
       <Drawer.Screen name="Intercity" component={Intercity} options={{ headerShown: false }} />
@@ -74,14 +76,31 @@ function DrawerNavigator() {
       <Drawer.Screen name='SourceDestinationForm' component={SourceDestinationForm} options={{ headerShown: false }}
     />
     </Drawer.Navigator>
+    </ContextProvider>
   );
 }
 
 function App() {
 
   const [isLoading, setIsLoading] = useState(true);
+  const [initialRoute , setInitialRoute] = useState("LoginScreen")
+
+  const isTokenAvailable = async ()=>{
+    let token = await AsyncStorage.getItem('token')
+    console.log("TOKEN ",token)
+    if(token!==null && token !==undefined){
+      setInitialRoute("HomeScreen")
+      return true
+    }
+    return false
+  }
 
   useEffect(() => {
+    isTokenAvailable().then(is=>{
+      console.log(is)
+    }).catch(error=>{
+      console.log("ERROR IN LOGGING TOKEN",error)
+    })
     setTimeout(() => {
       setIsLoading(false); // Set isLoading to false when the loading task is complete
     }, 2500); // Simulate loading for 2 seconds, replace this with your actual loading logic
@@ -95,7 +114,7 @@ function App() {
           {isLoading ? (
             <SplashScreen />
           ) : (<Stack.Navigator
-            initialRouteName="LoginScreen"
+            initialRouteName={initialRoute}
             screenOptions={{
               gestureEnabled: true,
               gestureDirection: 'horizontal',

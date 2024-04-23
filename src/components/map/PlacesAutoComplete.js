@@ -9,14 +9,22 @@ navigator.geolocation = require('@react-native-community/geolocation');
 
 
 const PlacesAutoComplete = (props) => {
-    const { placeholder, width, stops ,  setStops , index ,item} = props
+    const { placeholder, width, stops ,  setStops , index ,item , update} = props
     const [desc , setDesc] = useState(item ? item.description : '')
 
-    const handlePlaceSelected = (place) => {
+    const handlePlacesWithoutStops = (place, location)=>{
+        //console.log({place},{location},place.name)
+        update(prev => {return {...prev  , description : (place.description!==undefined ? place.description : place.name) , latitude : location.lat , longitude :  location.lng}})
+    }
+
+    const handlePlaceSelected = (place, location) => {
+        //console.log({place},{location})
         let temp = stops
         temp[index] = place
         setStops([...temp])
+        update(prev => {return {...prev  , description : place.description , latitude : location.lat , longitude :  location.lng}})
     };
+
     return (
         <View style={{ height: 45, margin: 5, color: 'black', width: width }}>
             <GooglePlacesAutocomplete
@@ -29,10 +37,12 @@ const PlacesAutoComplete = (props) => {
                 }}
                 onPress={(data, details) => {
                     // 'details' is provided when fetchDetails = true
-                    console.log('PRESSED',{data}, details);
+                    //console.log('PRESSED',data );
                     setDesc(data.description)
                     if (stops !== undefined && setStops !== undefined) {
-                        handlePlaceSelected(data);
+                        handlePlaceSelected(data ,details.geometry.location );
+                    }else{
+                        handlePlacesWithoutStops(data , details.geometry.location)
                     }
                 }}
                 query={{
@@ -41,13 +51,13 @@ const PlacesAutoComplete = (props) => {
                 }}
                 renderRow={(rowData, index) => (
                     <View style={styles.listItem}>
-                        <Text style={styles.listItemText}>{rowData.description}</Text>
+                        <Text style={styles.listItemText}>{rowData.description || rowData?.name}</Text>
                     </View>
                 )}
                 currentLocation={true}
                 currentLocationLabel='Current location'
 
-                currentLocationStyle={{ color: 'black' }}
+                // currentLocationStyle={{zIndex : 15 , backgroundColor : ''}}
 
                 styles={{
                     predefinedPlacesDescription: {
@@ -68,23 +78,24 @@ const PlacesAutoComplete = (props) => {
                         backgroundColor: `white`,
                     },
                     row: {
-                        backgroundColor: 'white',
-                        zIndex: 500,
-                        color: 'black',
-                        width: '100%'
+                        // backgroundColor: 'white',
+                        // zIndex: 500,
+                        color: 'red',
+                        // width: '100%'
                     },
                     listView: {
                         height: 500,
-                        overflow: 'scroll',
+                        // overflow: 'scroll',
                         position: 'absolute',
                         top: 50,
                         left: 0,
                         zIndex: 500,
-                        color: 'black',
+                        color: 'green',
                         width: '100%'
                     },
-
-
+                    listItemText :{
+                        color : 'blue'
+                    },
                 }}
             />
         </View>

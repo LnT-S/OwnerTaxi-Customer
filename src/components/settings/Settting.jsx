@@ -18,7 +18,7 @@ const Setting = () => {
   return (
     <AuthenticatedLayout title={'Setting'}>
     <Semicircle item = {profileDetails} editMode={false}/>
-      <View style={{flex : 1 ,display : 'flex', flexDirection : 'column',justifyContent : 'space-between' , width : '100%'}}>
+      <View style={{flex : 0.9 ,display : 'flex', flexDirection : 'column',justifyContent : 'space-between' , width : '100%'}}>
         <View style={styles.settingBox}>
           <TouchableOpacity style={styles.listItem1} onPress = {() => navigation.navigate('profileScreen')}>
             <Icon name="edit" size={30} color="#ffea00" />

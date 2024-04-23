@@ -71,7 +71,7 @@ const HomePage = () => {
 
 
     return (
-        <AuthenticatedLayout title={'Home'}>
+        <AuthenticatedLayout title={'OwnerTaxi'} showBackIcon={false}>
             <ScrollView style={styles.mainContainer}>
                 {/**Welcome */}
                 <View style={styles.container}>

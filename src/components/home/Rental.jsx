@@ -226,7 +226,7 @@ const Rental = () => {
                                 <Text style={styles.Packagetext}>Extra Distance: {extraDis}</Text>
                             </View>
                             <View>
-                                <Text style={styles.Packagetext}>Extra Hour: {extraHr}</Text>
+                                <Text style={styles.Packagetext}> Hour: {extraHr}</Text>
                             </View>
                         </View> : ''
                     }

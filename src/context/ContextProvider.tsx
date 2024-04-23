@@ -1,4 +1,4 @@
-import React, { createContext, useReducer , Dispatch, useContext } from 'react'
+import React, { createContext, useReducer, Dispatch, useContext, useState } from 'react'
 import type { PropsWithChildren } from 'react'
 
 type ProfileDataType = {
@@ -7,6 +7,7 @@ type ProfileDataType = {
     phone: Number,
     email: String,
     countryCode: Number,
+    bookingForm: Object
 }
 type ActionType = {
     type: String,
@@ -18,8 +19,60 @@ const profileData: ProfileDataType = {
     token: '',
     countryCode: 10,
     phone: 1000000000,
-    email: ''
+    email: '',
+    bookingForm: {
+        pickUp: {
+            description: '',
+            latitute: 10,
+            longitude: 10,
+            date: {
+                msec: 643546,
+                year: 54,
+                month: 10,
+                day: 21,
+                hour: 2,
+                min: 55
+            }
+        },
+        drop: {
+            description: '',
+            latitute: 10,
+            longitude: 10,
+            date: {
+                msec: 643546,
+                year: 54,
+                month: 10,
+                day: 21,
+                hour: 2,
+                min: 55
+            }
+        },
+        
+        budget: 100,
+        bookingType: 'local',
+        vehicle: {
+            type: 'mini',
+            subType: '',
+            capacity: 4
+        },
+        extrasIncluded: false,
+        package: {
+            costPerKm: 10,
+            costPerHour: 10,
+            distance: 10,
+            hours: 10,
+            extra: {
+                costPerKm: 10,
+                costPerHour: 10,
+                distance: 10,
+                hours: 10,
+            }
+        }
+    }
 }
+
+
+
 const profileReducer = (state: ProfileDataType, action: ActionType): ProfileDataType => {
     switch (action.type) {
         case 'USERNAME':
@@ -32,24 +85,26 @@ const profileReducer = (state: ProfileDataType, action: ActionType): ProfileData
             return { ...state, phone: action.payload }
         case 'EMAIL':
             return { ...state, email: action.payload }
+        case 'BOOKINGFORM':
+            return { ...state, bookingForm : action.payload }
         default:
             return state
     }
 }
-export const ProfileContext =  createContext<{ profileState: ProfileDataType; profileDispatch: Dispatch<ActionType> } | undefined>(undefined)
+export const ProfileContext = createContext<{ profileState: ProfileDataType; profileDispatch: Dispatch<ActionType> } | undefined>(undefined)
 export const ContextProvider = ({ children }: PropsWithChildren) => {
 
 
     const [profileState, profileDispatch] = useReducer(profileReducer, profileData)
 
     return (
-        <ProfileContext.Provider value={{ profileState , profileDispatch }}>
+        <ProfileContext.Provider value={{ profileState, profileDispatch }}>
             {children}
         </ProfileContext.Provider>
     )
 }
 
-export const useProfile = ()=>{
+export const useProfile = () => {
     const context = useContext(ProfileContext);
     return context
 }

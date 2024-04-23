@@ -5,10 +5,11 @@ import { BgColor, ScreenColor } from '../../styles/colors';
 
 
 const Buttons = (props) => {
+    console.log(props.error)
     return (
-        <TouchableOpacity style={[styles.buttonContainer]} {...props}>
-            <View style={[styles.button]} >
-                <Text style={styles.text}>{props.name}</Text>
+        <TouchableOpacity style={{...styles.buttonContainer , borderColor :'red' , borderWidth  : 2}} {...props}>
+            <View style={[styles.button , {borderColor : props.error===true ? 'red' : ''}]} >
+                <Text style={{...styles.text,color : props.error===true ? 'red' : 'black'}}>{props.name}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -19,7 +20,9 @@ export default Buttons;
 const styles = StyleSheet.create({
     buttonContainer: {
         alignItems: 'center',
-        backgroundColor: BgColor
+        backgroundColor: BgColor,
+        borderWidth : 2,
+        borderColor : 'red'
     },
     iconWrapper: {
         paddingHorizontal: 10,
@@ -33,7 +36,6 @@ const styles = StyleSheet.create({
         fontWeight: `500`
     },
     button: {
-
         height: getResponsiveValue(60, screenWidth * 0.12),
         borderRadius: 6,
         alignItems: 'center',

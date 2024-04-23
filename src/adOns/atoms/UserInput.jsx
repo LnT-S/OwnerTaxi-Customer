@@ -13,6 +13,8 @@ const UserInput = (props) => {
                 style={styles.input}
                 placeholder={props.placeholder}
                 placeholderTextColor='gray'
+                onChangeText={props.onChangeText}
+                {...props}
             // Other TextInput props go here
             />
         </View>
