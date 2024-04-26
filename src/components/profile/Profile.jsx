@@ -1,28 +1,64 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View , TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
 import AuthenticatedLayout from '../../screens/layout/AuthenticatedLayout'
 import Semicircle from '../../adOns/atoms/SemiCircle'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import YesNoModal from '../../adOns/molecules/YesNoModal';
+import { useProfile } from '../../context/ContextProvider';
+import { getProfile } from '../../services/profileServices';
 
 const Profile = () => {
 
   const navigation = useNavigation()
   const [showModal, setShowModal] = useState(false)
+  const { profileState, profileDispatch } = useProfile()
+  const [loading , setLoading] = useState(false)
+
+  console.log('/*/*/*', profileState)
+
   const profileDetails = {
-    image: '',
-    name: 'Shruti Mishra',
-    phoneNumber: '1234567891',
-    email: 'smsihra.ninja9252@gmail.com'
+    image: profileState.avatar,
+    name: profileState?.name,
+    phoneNumber: profileState?.phone,
+    email: profileState.email
   }
+
+  const handleRefresh = ()=>{
+    setLoading(true)
+    getProfile()
+        .then(data=>{
+            profileDispatch({
+                type  : 'PHONE',
+                payload  : data.data.data.phoneNo
+            })
+            profileDispatch({
+                type  : 'USERNAME',
+                payload  : data.data.data.name
+            })
+            profileDispatch({
+                type  : 'EMAIL',
+                payload  : data.data.data.email
+            })
+        })
+        .catch(err=>{
+            console.log("ERROR IN RETRIVING PROFILE ",err)
+        })
+        setTimeout(()=>{
+          setLoading(false)
+        },1500)
+  }
+
   const handleShow = () => {
     setShowModal(false);
   };
- 
+
 
   return (
     <AuthenticatedLayout title={'Profile'}>
+      <View style={{ position: 'absolute', top: 5, right: 5, zIndex: 99 }}>
+        {!loading ? <Icon name="refresh" size={24} color="white" style={styles.imageEditIcon} onPress={handleRefresh} /> : <ActivityIndicator />}
+      </View>
       <YesNoModal
         show={showModal}
         setShow={setShowModal}
@@ -47,7 +83,7 @@ const Profile = () => {
             <Text style={styles.text}>Show My Profile Image To Customer</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={{ width: '100%' }} onPress={() => {navigation.navigate('Privacy')}}>
+        <TouchableOpacity style={{ width: '100%' }} onPress={() => { navigation.navigate('Privacy') }}>
           <Text style={styles.textStyle}>Privacy Policy</Text>
         </TouchableOpacity>
       </View>
@@ -83,12 +119,12 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     padding: 5
   },
-  textStyle:{
+  textStyle: {
     textAlign: 'center',
     color: 'black',
     fontSize: 18,
     fontWeight: '800',
-    padding:15,
+    padding: 15,
     textDecorationLine: 'underline'
   }
 })

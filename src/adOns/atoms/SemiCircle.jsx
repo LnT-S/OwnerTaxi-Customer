@@ -6,36 +6,49 @@ import PressButton from './PressButton';
 import { getResponsiveValue } from '../../styles/responsive';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { imagePicker } from '../../utils/UtilityFuntions';
+import { Avatar } from 'react-native-elements';
+import { editProflie } from '../../services/profileServices';
 
 const InvertedPersonInfoSemicircle = (props) => {
 
   const { image, name, phoneNumber, email } = props.item
   const editMode = props.editMode
+  const [uri , setUri] = useState(image)
+  const [ formData , setFormData] = useState({
+    name : name,
+    email : email,
+    avatar : image
+  })
+  const handleChange = ({name , value }) => {
+    setFormData(prev=>{
+      return {...prev , [name] : value}
+    })
+  }
+  const save = ()=>{
+    if(name!==formData.name || email!==formData.email || uri!==''){
 
-  const [selectedImage, setSelectedImage] = useState(image)
-
-  useEffect(() => {
-    console.log('SELECTED IMAGE IS ', selectedImage?.uri)
-  }, [selectedImage])
-
-  const handleChange = (v) => {
-    console.log(v)
+    }
+    editProflie(formData)
   }
   return (
     <View style={styles.container}>
       <View style={styles.semicircle}>
+      
         <View style={styles.imageContainer}>
           <Image
-            source={(selectedImage === '' || selectedImage === undefined || selectedImage === null) ?
+            source={(uri===undefined) ?
               require('../../assets/imgaes/Profile.png') :
-              { uri: selectedImage.uri }
+              { uri: uri }
             }
             style={styles.image}
           />
           {editMode ? (<TouchableOpacity onPress={async () => {
             imagePicker('Select Profile Image', 'photo', true, false, true, true)
             .then(image=>{
-              image!==null ? setSelectedImage(image) : ''
+              image!==null ? setFormData(prev=>{
+                return {...prev , avatar : image}
+              }) : ''
+              image!==null ? setUri(image.uri) : ''
             })
             .catch(err=>{
               console.log('ERROR IN IMAGE PICK',err)
@@ -48,7 +61,7 @@ const InvertedPersonInfoSemicircle = (props) => {
         {editMode ? (
           <TextInput
             style={styles.editableField}
-            onChangeText={(v) => { handleChange(v) }}
+            onChangeText={(v) => { handleChange({name : 'name' , value : 'v'}) }}
             placeholder={name ? name : 'Enter your User Name'}
             placeholderTextColor="gray"
           />) :
@@ -60,7 +73,7 @@ const InvertedPersonInfoSemicircle = (props) => {
         {editMode ? (
           <TextInput
             style={styles.editableField}
-            onChangeText={(v) => { handleChange(v) }}
+            onChangeText={(v) => { handleChange({name : 'email' , value : 'v'}) }}
             placeholder={email ? email : 'Enter your email'}
             placeholderTextColor="gray"
           />) :
@@ -70,9 +83,8 @@ const InvertedPersonInfoSemicircle = (props) => {
         }
         <Text style={styles.phoneNumber}>{phoneNumber}</Text>
       </View>
-      <PressButton name="Save" />
-      {editMode ? <View style={styles.saveButton}>
-      </View> : ''}
+      
+      {editMode ?<PressButton name="Save" /> : ''}
     </View>
   );
 };

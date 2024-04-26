@@ -14,7 +14,7 @@ export const getOtp = async (phoneNo) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ phone: phoneNo })
+            body: JSON.stringify({ phone: phoneNo, type : 'customer' })
 
         })
         let data = await res.json()
@@ -42,7 +42,6 @@ export const verifyOtp = async (phone, otp) => {
     console.log('DATA RECIVED ', data)
     return { status: res.status, data: data }
 }
-
 export const localBooking = async (formData) => {
     const URL = `${server.server}/customer/booking`
     console.log('URL ', URL)
@@ -64,6 +63,23 @@ export const localBooking = async (formData) => {
 }
 export const deleteAccount = async () => {
     const URL = `${server.server}/authentication/delete-account`
+    console.log('URL ', URL)
+    let auth_token = await AsyncStorage.getItem('token')
+
+    let res = await fetch(URL, {
+        method: 'get',
+        mode: 'cors',
+        headers: {
+            'Authorization': auth_token ? `Bearer ${auth_token}` : '',
+            'Content-Type': 'application/json',
+        }
+    })
+    let data = await res.json()
+    console.log('DATA RECIVED ', data)
+    return { status: res.status, data: data }
+}
+export const activeBookingInfo = async () => {
+    const URL = `${server.server}/customer/active-booking-info`
     console.log('URL ', URL)
     let auth_token = await AsyncStorage.getItem('token')
 

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Linking } from 'react-native';
 
 const ActiveBookingCard = (props) => {
 
-    const activeItem = props.item
+    const activeItem = props.item?.passiveBookingId
     const navigation = useNavigation()
 
     const handleCall = () => {
@@ -26,8 +27,8 @@ const ActiveBookingCard = (props) => {
         <TouchableOpacity onPress={handlenavigation}>
             <View style={styles.activeBar}>
                 <View style={{ display: 'flex ', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18, textTransform: 'capitalize' }}>{activeItem.type} </Text>
-                    <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18, fontWeight: '500', textTransform: 'capitalize', color: 'red' }}>{activeItem.subType}</Text>
+                    <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18, textTransform: 'capitalize' }}>{activeItem.bookingType} </Text>
+                    <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18, fontWeight: '500', textTransform: 'capitalize', color: 'red' }}>{activeItem.bookingSubType}</Text>
                 </View>
                 <View style={{
                     display: 'flex ', flexDirection: 'row', alignItems: 'center',
@@ -42,10 +43,11 @@ const ActiveBookingCard = (props) => {
                             <Text style={[styles.textColor, styles.textHeading]}>Pick Up  </Text>
                         </View>
                         <View>
-                            <Text style={{ ...styles.textColor, textTransform: 'capitalize' }}>{activeItem.pickUp.point}</Text>
+                            <Text style={{ ...styles.textColor, textTransform: 'capitalize' }}>{activeItem.pickUp.description}</Text>
                         </View>
                         <View>
-                            <Text style={styles.textColor}>{activeItem.pickUp.time}</Text>
+                            <Text style={styles.textColor}>{new Date(activeItem.pickUp.date.msec).toDateString()}</Text>
+                            <Text style={styles.textColor}>{new Date(activeItem.pickUp.date.msec).toLocaleTimeString()}</Text>
                         </View>
                     </View>
                     <View style={styles.activeBarmarginLeft}>
@@ -53,11 +55,12 @@ const ActiveBookingCard = (props) => {
                             <Text style={[styles.textColor, styles.textHeading]}>Destination  </Text>
                         </View>
                         <View>
-                            <Text style={{ ...styles.textColor, textTransform: 'capitalize' }}>{activeItem.drop.point}</Text>
+                            <Text style={{ ...styles.textColor, textTransform: 'capitalize' }}>{activeItem.drop.description}</Text>
                         </View>
-                        <View>
-                            <Text style={styles.textColor}>{activeItem.drop.time}</Text>
-                        </View>
+                        {activeItem.drop.date.msec !== null ? <View>
+                            <Text style={styles.textColor}>{new Date(activeItem.drop.date.msec).toDateString()}</Text>
+                            <Text style={styles.textColor}>{new Date(activeItem.drop.date.msec).toLocaleTimeString()}</Text>
+                        </View> : ''}
                     </View>
                 </View>
 

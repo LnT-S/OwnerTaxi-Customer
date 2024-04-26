@@ -6,9 +6,12 @@ import { BgColor, ScreenColor } from '../../styles/colors'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PlacesAutoComplete from '../map/PlacesAutoComplete'
 import { Image } from 'react-native-elements'
+import { getProfile } from '../../services/profileServices'
+import { useProfile } from '../../context/ContextProvider'
 
 const HomePage = () => {
     const navigation = useNavigation()
+    const { profileState, profileDispatch } = useProfile()
     //Dummy Search Array
 
     const TourPackage = [
@@ -40,7 +43,7 @@ const HomePage = () => {
             image: require('../../assets/imgaes/IntercityTour.jpeg'),
             name: 'Tour Name'
         },
-      
+
     ]
     const Services = [
         {
@@ -64,15 +67,31 @@ const HomePage = () => {
     const handleNavigationServices = (name) => {
         console.log(name)
         let navigationName = 'Local'
-        if(name === 'Intercity'){
-            navigationName='Intercity'
-        }else if(name === 'Rental'){
-            navigationName='Rental'
-        }else if(name === 'Sharing'){
-            navigationName='Sharing'
+        if (name === 'Intercity') {
+            navigationName = 'Intercity'
+        } else if (name === 'Rental') {
+            navigationName = 'Rental'
+        } else if (name === 'Sharing') {
+            navigationName = 'Sharing'
         }
-       navigation.navigate(navigationName)
+        navigation.navigate(navigationName)
     }
+    useEffect(() => {
+        getProfile()
+            .then(data => {
+                profileDispatch({
+                    type: 'PHONE',
+                    payload: data.data.data.phoneNo
+                })
+                profileDispatch({
+                    type: 'USERNAME',
+                    payload: 'AMAN'
+                })
+            })
+            .catch(err => {
+                console.log("ERROR IN RETRIVING PROFILE ", err)
+            })
+    }, [])
     useEffect(() => {
         const backAction = () => {
             navigation.goBack()
@@ -96,7 +115,7 @@ const HomePage = () => {
                         source={require('../../assets/imgaes/DriverAppLogo.png')}
                         style={[styles.image]}
                     />
-                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' ,flexDirection: 'row',margin:15}}>
+                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', margin: 15 }}>
                         <Text style={styles.weltext}>Welcome, </Text>
                         <Text style={styles.usertext}>User Name</Text>
                     </View>
@@ -116,7 +135,7 @@ const HomePage = () => {
                         renderItem={({ item, index }) => {
                             return <TouchableOpacity style={{ margin: 10 }}>
                                 <Image source={item.image}
-                                    style={{ width: 75, height: 80, borderRadius: 10 }}  onPress={()=>handleNavigationServices(item.name)}/>
+                                    style={{ width: 75, height: 80, borderRadius: 10 }} onPress={() => handleNavigationServices(item.name)} />
                                 <Text style={styles.suggestionText}>{item.name}</Text>
                             </TouchableOpacity>
                         }}
@@ -126,13 +145,13 @@ const HomePage = () => {
                 <View style={styles.TourPacContainer}>
                     <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', marginHorizontal: 10 }}>
                         <Text style={styles.suggestiontext}>Tour Packages</Text>
-                       
+
                     </View>
                     <FlatList
                         style={{ marginHorizontal: 10 }}
                         keyExtractor={(item, index) => (index)}
                         data={TourPackage}
-                        
+
                         renderItem={({ item, index }) => {
                             return <TouchableOpacity style={{ margin: 10 }}>
                                 <View style={styles.vehicleImage}>
@@ -161,7 +180,7 @@ const styles = StyleSheet.create({
     },
 
     TourPacContainer: {
-marginBottom:10
+        marginBottom: 10
     },
     suggestiontext: {
         color: 'black',
