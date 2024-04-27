@@ -7,11 +7,11 @@ export const showNoty = (message , type , description)=>{
         type : type,
         hideStatusBar : true,
         statusBarHeight : 100,
-        floating:false,
+        floating:true,
         autoHide : true,
-        duration : 2000,
-        position : 'bottom',
-        style : {zIndex : 999 ,display : 'flex' , justifyContent: 'center',alignItems: 'center', gap : 10},
+        duration : 1500,
+        position :'top',
+        style : {display : 'flex' , justifyContent: 'center',alignItems: 'center', gap : 10},
         textProps : {style :{fontSize : 20 , color : 'white' , fontFamily : 'serif'}},
         icon : ()=><View style={{ height: 60, width: 55, position : 'relative' , top : -5}}><Image resizeMode='contain' source={require('../../assets/imgaes/Taxilogo.png')} style={{ height: '100%', width: '100%' }} /></View>
         // animationDuration : 50

@@ -9,10 +9,12 @@ import YesNoModal from '../../adOns/molecules/YesNoModal';
 import FlashMessage from 'react-native-flash-message';
 import { showNoty } from '../../common/flash/flashNotification';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useProfile } from '../../context/ContextProvider';
 
 const Setting = () => {
 
   const navigation = useNavigation()
+  const {profileState, profileDispatch} = useProfile()
   const [showModal, setShowModal] = useState(false)
   const delRef = useRef(null)
 
@@ -29,6 +31,7 @@ const Setting = () => {
       .then(async data => {
         console.log(data.data.message , data.status)
         setShowModal(false)
+        profileDispatch({type:'REFRESH', payload:!profileState.refresh})
         if(data.status!==200){
           showNoty(data.data.message,"danger")
         }else{

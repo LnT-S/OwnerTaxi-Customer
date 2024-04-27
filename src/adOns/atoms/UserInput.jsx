@@ -12,7 +12,7 @@ const UserInput = (props) => {
             <TextInput
                 style={styles.input}
                 placeholder={props.placeholder}
-                placeholderTextColor='gray'
+                placeholderTextColor='black'
                 onChangeText={props.onChangeText}
                 {...props}
             // Other TextInput props go here
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         fontSize:18,
+        color :"black"
     },
 });
 

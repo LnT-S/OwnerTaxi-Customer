@@ -91,7 +91,7 @@ const HomePage = () => {
             .catch(err => {
                 console.log("ERROR IN RETRIVING PROFILE ", err)
             })
-    }, [])
+    }, [profileState.refresh])
     useEffect(() => {
         const backAction = () => {
             navigation.goBack()
@@ -103,7 +103,7 @@ const HomePage = () => {
             console.log('BACKHANDLER REMOVED FROM HOME PAGE')
             backHandler.remove()
         };
-    }, []);
+    }, [profileState.refresh]);
 
 
     return (

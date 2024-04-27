@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Text, View, FlatList, ScrollView, StyleSheet, StatusBar } from 'react-native'
+import { Text, View, FlatList, ScrollView, StyleSheet, StatusBar, ActivityIndicator, RefreshControl } from 'react-native'
 import AuthenticatedLayout from '../../screens/layout/AuthenticatedLayout'
 import ActiveBookingCard from './ActiveBookingCard'
 
@@ -10,25 +10,35 @@ import { showNoty } from '../../common/flash/flashNotification'
 import FlashMessage from 'react-native-flash-message'
 
 const ActiveBooking = () => {
+    const [isRefreshing, setIsRefreshing] = useState(false)
 
-    const [activeBookingArray , setActiveBookingArray] = useState([])
-    const [refresh , setRefresh] = useState(true)
+    const [activeBookingArray, setActiveBookingArray] = useState([])
+    const [refresh, setRefresh] = useState(true)
     const ref = useRef(null)
+    const fetchData = async () => {
+        setIsRefreshing(true)
+        activeBookingInfo().then(data => {
+            console.log(data.data.data)
+            setActiveBookingArray(data.data.data)
+            showNoty("Active Booking Refreshed", "info")
+        })
+            .catch(error => {
+                console.log('ERROR CALLING ACTIVE BOOKING SCHEMA')
+            })
+        setInterval(() => {
+            setIsRefreshing(false)
+        }, 200)
 
-    useEffect(()=>{
-        if(activeBookingArray.length===0){
-            showNoty("No Active Booking","info")
-        }
-    },[activeBookingArray])
-    useEffect(()=>{
-        activeBookingInfo().then(data=>{
+    }
+    useEffect(() => {
+        activeBookingInfo().then(data => {
             console.log(data.data.data)
             setActiveBookingArray(data.data.data)
         })
-        .catch(error=>{
-            console.log('ERROR CALLING ACTIVE BOOKING SCHEMA')
-        })
-    },[refresh])
+            .catch(error => {
+                console.log('ERROR CALLING ACTIVE BOOKING SCHEMA')
+            })
+    }, [refresh])
 
     // const activeBookingArray = [
     //     {
@@ -146,7 +156,7 @@ const ActiveBooking = () => {
     //                 time: '6 min',
     //                 kilometer: '2.8 Km'
     //             },
-              
+
     //         ]
     //     },
     //     {
@@ -220,8 +230,13 @@ const ActiveBooking = () => {
     // ]
     return (
         <AuthenticatedLayout title={'Active Booking'}>
-            <ScrollView style={{ flex: 1, backgroundColor: BgColor, height: height,marginBottom: 35 }}>
-            <FlashMessage ref={ref} position={"top"}/>
+            {isRefreshing && <ActivityIndicator size={'large'} color={'black'} />}
+            <ScrollView style={{ flex: 1, backgroundColor: BgColor, height: height, marginBottom: 35 }}
+                refreshControl={
+                    <RefreshControl refreshing={isRefreshing} onRefresh={fetchData} />
+                }
+            >
+                <FlashMessage ref={ref}/>
                 {activeBookingArray.length > 0 ? <FlatList
                     keyExtractor={(item, index) => (index)}
                     data={activeBookingArray}

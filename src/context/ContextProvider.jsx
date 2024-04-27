@@ -4,6 +4,7 @@ export const ProfileContext = createContext()
 export const ContextProvider = ({ children }) => {
 
     const profileData = {
+        refresh:false,
         userName: '',
         token: '',
         countryCode: 10,
@@ -62,6 +63,8 @@ export const ContextProvider = ({ children }) => {
     } 
     const profileReducer = (state = profileData, action) => {
         switch (action.type) {
+            case 'REFRESH':
+                return { ...state, refresh: action.payload }
             case 'USERNAME':
                 return { ...state, userName: action.payload }
             case 'TOKEN':

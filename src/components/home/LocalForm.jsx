@@ -138,12 +138,13 @@ const LocalForm = function () {
             vehicle
         }
         try {
+            showNoty("SUCCESSFULL", "success")
             let resObj = await localBooking(data)
             console.log(resObj)
             if (resObj.status !== 200) {
-                showNoty(resObj.data.message, "danger")
+                showNoty("BOOKING LIMIT HAS BEEN REACHED", "danger")
             } else {
-                showNoty(resObj.data.message, "success")
+                showNoty("SUCCESSFULL", "success")
             }
         } catch (error) {
             console.log('ERROR IN LOCAL BOOKING ', error)
@@ -161,13 +162,15 @@ const LocalForm = function () {
             title={'Local Form'}
             showFooter={false}
         >
+            <View style={{ position: 'absolute' }}>
+                <FlashMessage ref={localFormRef} />
+            </View>
             <ScrollView style={{ flex: 1, backgroundColor: ScreenColor, paddingHorizontal: 10 }}
                 nestedScrollEnabled={true}
                 contentContainerStyle={{ flexGrow: 1 }}
                 keyboardShouldPersistTaps="true"
             >
                 <View>
-                    <FlashMessage ref={localFormRef} />
                     <View style={styles.mapContainer}>
                         <MapComponent markerArray={marker} />
                         <View style={styles.addressContainer}>
@@ -226,8 +229,8 @@ const LocalForm = function () {
                                                     {item.type}
                                                 </Text>
                                                 <Text style={styles.nameText}>
-                                                {item.capacity} + 1
-                                            </Text>
+                                                    {item.capacity} + 1
+                                                </Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>
@@ -262,6 +265,7 @@ const LocalForm = function () {
                             error={submitError !== '' ? true : false} />
                     </View>
                 </View>
+
             </ScrollView>
         </AuthenticatedLayout>
     );
@@ -365,7 +369,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         color: 'black',
         textTransform: 'uppercase',
-        textAlign:'center'
+        textAlign: 'center'
     },
     bgcolor: {
         backgroundColor: BgColor

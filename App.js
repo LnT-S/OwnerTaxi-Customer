@@ -52,6 +52,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Terms from './src/components/terms&Condition/terms.jsx';
 import Privacy from './src/components/privacy/Privacy.jsx';
 import BidingPage from './src/components/active Booking/BidingPage.jsx';
+import FlashMessage from 'react-native-flash-message';
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator();
@@ -169,6 +170,7 @@ function App() {
           </Stack.Navigator>)}
         </NavigationContainer>
       </ContextProvider>
+      <FlashMessage />
     </SafeAreaView>
   )
 }
