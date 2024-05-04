@@ -29,6 +29,7 @@ const OTPInput = ({ length, OTP }) => {
         <TextInput
           key={index}
           style={styles.input}
+          onChangeText={(value) => handleOTPChange(index, value)}
           value={otp[index]}
           maxLength={1}
           keyboardType="numeric"

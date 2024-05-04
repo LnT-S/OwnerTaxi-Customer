@@ -9,20 +9,24 @@ navigator.geolocation = require('@react-native-community/geolocation');
 
 
 const PlacesAutoComplete = (props) => {
-    const { placeholder, width, stops ,  setStops , index ,item , update} = props
-    const [desc , setDesc] = useState(item ? item.description : '')
+    const { placeholder, width, stops, setStops, index, item, update } = props
+    const [desc, setDesc] = useState(item ? item.description : '')
 
-    const handlePlacesWithoutStops = (place, location)=>{
+    const handlePlacesWithoutStops = (place, location) => {
         //console.log({place},{location},place.name)
-        update(prev => {return {...prev  , description : (place.description!==undefined ? place.description : place.name) , latitude : location.lat , longitude :  location.lng}})
+        update(prev => { return { ...prev, description: (place.description !== undefined ? place.description : place.name), latitude: location.lat, longitude: location.lng } })
     }
 
     const handlePlaceSelected = (place, location) => {
-        //console.log({place},{location})
+        console.log({ place }, { location })
         let temp = stops
-        temp[index] = place
+        let thisStop = {
+            description: place.description, 
+            latitude: location.lat, 
+            longitude: location.lng
+        }
+        temp[index] = thisStop
         setStops([...temp])
-        update(prev => {return {...prev  , description : place.description , latitude : location.lat , longitude :  location.lng}})
     };
 
     return (
@@ -32,17 +36,17 @@ const PlacesAutoComplete = (props) => {
                 fetchDetails={true}
                 textInputProps={{
                     placeholderTextColor: 'gray',
-                    value : desc,
-                    onChangeText : (v)=>setDesc(v)
+                    value: desc,
+                    onChangeText: (v) => setDesc(v)
                 }}
                 onPress={(data, details) => {
                     // 'details' is provided when fetchDetails = true
                     //console.log('PRESSED',data );
                     setDesc(data.description)
                     if (stops !== undefined && setStops !== undefined) {
-                        handlePlaceSelected(data ,details.geometry.location );
-                    }else{
-                        handlePlacesWithoutStops(data , details.geometry.location)
+                        handlePlaceSelected(data, details.geometry.location);
+                    } else {
+                        handlePlacesWithoutStops(data, details.geometry.location)
                     }
                 }}
                 query={{
@@ -93,8 +97,8 @@ const PlacesAutoComplete = (props) => {
                         color: 'green',
                         width: '100%'
                     },
-                    listItemText :{
-                        color : 'blue'
+                    listItemText: {
+                        color: 'blue'
                     },
                 }}
             />

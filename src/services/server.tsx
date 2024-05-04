@@ -3,7 +3,7 @@
 import config from "./config.json";
 
 // const env:string = process.env['APP_ENV'] as string;
-const env: string = "staging";
+const env: string = "development";
 
 interface CONFIG {
     server: string,

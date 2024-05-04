@@ -8,79 +8,82 @@ const ActiveBookingCard = (props) => {
 
     const activeItem = props.item?.passiveBookingId
     const navigation = useNavigation()
+    console.log("ACTIVE BOOKING " ,props.item)
 
     const handleCall = () => {
-        Linking.openURL(`tel:${8175973674}`);
+        Linking.openURL(`tel:${8303024282}`);
     };
 
     const handleMessage = () => {
-        const messageUrl = `sms:${8175973674}`;
+        const messageUrl = `sms:${8303024282}`;
         Linking.openURL(messageUrl);
     };
     const handlenavigation = () => {
-        if (activeItem.status === 'Budget Confirmation Pending From your Side') {
+        if (activeItem.status === 'accepted') {
             navigation.navigate('Bidding', { item: activeItem })
         }
     }
 
     return (
-        <TouchableOpacity onPress={handlenavigation}>
-            <View style={styles.activeBar}>
-                <View style={{ display: 'flex ', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18, textTransform: 'capitalize' }}>{activeItem.bookingType} </Text>
-                    <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18, fontWeight: '500', textTransform: 'capitalize', color: 'red' }}>{activeItem.bookingSubType}</Text>
-                </View>
-                <View style={{
-                    display: 'flex ', flexDirection: 'row', alignItems: 'center',
-                    width: ' 85%'
-                }}>
-                    <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18 }}>Status : </Text>
-                    <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18, fontWeight: '500', textTransform: 'capitalize', color: 'green' }}>{activeItem.status}</Text>
-                </View>
-                <View style={[styles.horizontalstatus, styles.borderTop]}>
-                    <View style={styles.activeBarmarginRight}>
-                        <View>
-                            <Text style={[styles.textColor, styles.textHeading]}>Pick Up  </Text>
+        <View>
+            <TouchableOpacity onPress={handlenavigation}>
+                <View style={styles.activeBar}>
+                    <View style={{ display: 'flex ', flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18, textTransform: 'capitalize' }}>{activeItem.bookingType} </Text>
+                        <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18, fontWeight: '500', textTransform: 'capitalize', color: 'red' }}>{activeItem.bookingSubType}</Text>
+                    </View>
+                    <View style={{
+                        display: 'flex ', flexDirection: 'row', alignItems: 'center',
+                        width: ' 85%'
+                    }}>
+                        <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18 }}>Status : </Text>
+                        <Text style={{ ...styles.textColor, ...styles.textHeading, fontSize: 18, fontWeight: '500', textTransform: 'capitalize', color: 'green' }}>{activeItem.status}</Text>
+                    </View>
+                    <View style={[styles.horizontalstatus, styles.borderTop]}>
+                        <View style={styles.activeBarmarginRight}>
+                            <View>
+                                <Text style={[styles.textColor, styles.textHeading]}>Pick Up  </Text>
+                            </View>
+                            <View>
+                                <Text style={{ ...styles.textColor, textTransform: 'capitalize' }}>{activeItem.pickUp.description}</Text>
+                            </View>
+                            <View>
+                                <Text style={styles.textColor}>{new Date(activeItem.pickUp.date.msec).toDateString()}</Text>
+                                <Text style={styles.textColor}>{new Date(activeItem.pickUp.date.msec).toLocaleTimeString()}</Text>
+                            </View>
                         </View>
-                        <View>
-                            <Text style={{ ...styles.textColor, textTransform: 'capitalize' }}>{activeItem.pickUp.description}</Text>
-                        </View>
-                        <View>
-                            <Text style={styles.textColor}>{new Date(activeItem.pickUp.date.msec).toDateString()}</Text>
-                            <Text style={styles.textColor}>{new Date(activeItem.pickUp.date.msec).toLocaleTimeString()}</Text>
+                        <View style={styles.activeBarmarginLeft}>
+                            <View>
+                                <Text style={[styles.textColor, styles.textHeading]}>Destination  </Text>
+                            </View>
+                            <View>
+                                <Text style={{ ...styles.textColor, textTransform: 'capitalize' }}>{activeItem.drop.description}</Text>
+                            </View>
+                            {activeItem.drop.date.msec !== null ? <View>
+                                <Text style={styles.textColor}>{new Date(activeItem.drop.date.msec).toDateString()}</Text>
+                                <Text style={styles.textColor}>{new Date(activeItem.drop.date.msec).toLocaleTimeString()}</Text>
+                            </View> : ''}
                         </View>
                     </View>
-                    <View style={styles.activeBarmarginLeft}>
-                        <View>
-                            <Text style={[styles.textColor, styles.textHeading]}>Destination  </Text>
-                        </View>
-                        <View>
-                            <Text style={{ ...styles.textColor, textTransform: 'capitalize' }}>{activeItem.drop.description}</Text>
-                        </View>
-                        {activeItem.drop.date.msec !== null ? <View>
-                            <Text style={styles.textColor}>{new Date(activeItem.drop.date.msec).toDateString()}</Text>
-                            <Text style={styles.textColor}>{new Date(activeItem.drop.date.msec).toLocaleTimeString()}</Text>
-                        </View> : ''}
-                    </View>
-                </View>
 
-                {/**Call Msg cancel */}
-                <View style={[styles.container, styles.borderTop, {}]} >
-                    <TouchableOpacity style={styles.iconContainer} onPress={handleCall}>
-                        <Icon name="phone" size={30} color='#31db1a' />
-                        <Text style={styles.scheduleText}>Call</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconContainer} onPress={handleMessage}>
-                        <Icon name="message" size={30} color="blue" />
-                        <Text style={styles.scheduleText}>Message</Text>
-                    </TouchableOpacity>
-                    <View style={styles.iconContainer}>
-                        <Icon name="cancel" size={30} color="black" />
-                        <Text style={styles.scheduleText}>Cancel</Text>
-                    </View>
+                    {/**Call Msg cancel */}
                 </View>
+            </TouchableOpacity>
+            <View style={[styles.activeBar ,styles.container, styles.borderTop, {}]} >
+                <TouchableOpacity style={styles.iconContainer} onPress={handleCall}>
+                    <Icon name="phone" size={30} color='#31db1a' />
+                    <Text style={styles.scheduleText}>Call</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.iconContainer} onPress={handleMessage}>
+                    <Icon name="message" size={30} color="blue" />
+                    <Text style={styles.scheduleText}>Message</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.iconContainer}>
+                    <Icon name="cancel" size={30} color="black" />
+                    <Text style={styles.scheduleText}>Cancel</Text>
+                </TouchableOpacity>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 

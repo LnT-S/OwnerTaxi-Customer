@@ -42,7 +42,7 @@ export const verifyOtp = async (phone, otp) => {
     console.log('DATA RECIVED ', data)
     return { status: res.status, data: data }
 }
-export const localBooking = async (formData) => {
+export const booking = async (formData) => {
     const URL = `${server.server}/customer/booking`
     console.log('URL ', URL)
     let auth_token = await AsyncStorage.getItem('token')

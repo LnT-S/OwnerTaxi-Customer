@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import YesNoModal from './YesNoModal';
+import { useProfile } from '../../context/ContextProvider';
 interface CustomDrawerProps {
   state: any; // React Navigation state object
   navigation: any; // React Navigation navigation object
@@ -13,6 +14,7 @@ interface CustomDrawerProps {
 
 const CustomDrawerContent: React.FC<CustomDrawerProps> = ({ state, navigation }) => {
 
+  const {profileState , profileDispatch} = useProfile()
   const activeRouteName = state.routeNames[state.index]; // Get the active route name
   const [showModal, setShowModal] = useState(false)
   const mainNavigation = useNavigation()
@@ -22,8 +24,13 @@ const CustomDrawerContent: React.FC<CustomDrawerProps> = ({ state, navigation })
   };
   const handleYes = async () => {
     await AsyncStorage.removeItem('token')
+    // profileDispatch({type:'REFRESH', payload:!profileState.refresh})
     setShowModal(false);
-    navigation.navigate("LoginScreen")
+    navigation.closeDrawer();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'LoginScreen' }],
+    });
 };
 
   return (

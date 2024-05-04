@@ -85,7 +85,11 @@ const HomePage = () => {
                 })
                 profileDispatch({
                     type: 'USERNAME',
-                    payload: 'AMAN'
+                    payload: data.data.data.name
+                })
+                profileDispatch({
+                    type: 'AVATAR',
+                    payload: data.data.data.avatar
                 })
             })
             .catch(err => {

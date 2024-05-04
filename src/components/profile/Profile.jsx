@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
 import AuthenticatedLayout from '../../screens/layout/AuthenticatedLayout'
 import Semicircle from '../../adOns/atoms/SemiCircle'
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import YesNoModal from '../../adOns/molecules/YesNoModal';
 import { useProfile } from '../../context/ContextProvider';
 import { getProfile } from '../../services/profileServices';
@@ -13,40 +13,48 @@ const Profile = () => {
   const navigation = useNavigation()
   const [showModal, setShowModal] = useState(false)
   const { profileState, profileDispatch } = useProfile()
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  console.log('/*/*/*', profileState)
-
-  const profileDetails = {
+  const [profileDetails, setProfileDetails] = useState({
     image: profileState.avatar,
-    name: profileState?.name,
+    name: profileState?.userName,
     phoneNumber: profileState?.phone,
     email: profileState.email
-  }
+  })
 
-  const handleRefresh = ()=>{
+  const handleRefresh = () => {
     setLoading(true)
     getProfile()
-        .then(data=>{
-            profileDispatch({
-                type  : 'PHONE',
-                payload  : data.data.data.phoneNo
-            })
-            profileDispatch({
-                type  : 'USERNAME',
-                payload  : data.data.data.name
-            })
-            profileDispatch({
-                type  : 'EMAIL',
-                payload  : data.data.data.email
-            })
+      .then(data => {
+        setProfileDetails({
+          image: data.data.data.avatar,
+          name: data.data.data.name,
+          phoneNumber: data.data.data.phoneNo,
+          email: data.data.data.email
         })
-        .catch(err=>{
-            console.log("ERROR IN RETRIVING PROFILE ",err)
+        profileDispatch({
+          type: 'PHONE',
+          payload: data.data.data.phoneNo
         })
-        setTimeout(()=>{
-          setLoading(false)
-        },1500)
+        profileDispatch({
+          type: 'USERNAME',
+          payload: data.data.data.name
+        })
+        profileDispatch({
+          type: 'EMAIL',
+          payload: data.data.data.email
+        })
+        profileDispatch({
+          type: 'AVATAR',
+          payload: data.data.data.avatar
+        })
+      })
+      .catch(err => {
+        console.log("ERROR IN RETRIVING PROFILE ", err)
+      })
+    setTimeout(() => {
+      setLoading(false)
+    }, 1500)
   }
 
   const handleShow = () => {
@@ -67,7 +75,7 @@ const Profile = () => {
         handleYes={handleShow}
         yesText={'Hide'}
         noText={'Show'} />
-      <Semicircle item={profileDetails} editMode={true} />
+      <Semicircle item={profileDetails} editMode={false} />
       <View style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%' }}>
         <View style={styles.settingBox}>
           <TouchableOpacity style={styles.listItem1} onPress={() => setShowModal(true)}>

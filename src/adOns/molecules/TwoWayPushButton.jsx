@@ -17,9 +17,9 @@ const TwoWayPushButton = (props) => {
         setter(v)
     }
 
-    useEffect(() => {
-        setTimeout(() => setter(option1), 1000)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => setter(option1), 1000)
+    // }, [])
 
     return (
 

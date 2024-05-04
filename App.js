@@ -62,7 +62,7 @@ function DrawerNavigator() {
 
   return (
     <ContextProvider>
-    <Drawer.Navigator initialRouteName='Home' drawerContent={(props) => <CustomDrawerContent {...props} />} backBehavior="history" detachInactiveScreens={true}>
+    <Drawer.Navigator initialRouteName='Home' drawerContent={(props) => <CustomDrawerContent {...props} />} backBehavior="initialRoute" detachInactiveScreens={true}>
       <Drawer.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
       <Drawer.Screen name="Local" component={LocalForm} options={{ headerShown: false }} />
       <Drawer.Screen name="Intercity" component={Intercity} options={{ headerShown: false }} />

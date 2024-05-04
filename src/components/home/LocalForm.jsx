@@ -8,7 +8,7 @@ import { getResponsiveValue } from '../../styles/responsive';
 import Buttons from '../../adOns/atoms/Buttom';
 import MapComponent from '../map/MapComponent';
 import { useProfile } from '../../context/ContextProvider';
-import { localBooking } from '../../services/apiCall';
+import { booking, localBooking } from '../../services/apiCall';
 import FlashMessage from 'react-native-flash-message';
 import { showNoty } from '../../common/flash/flashNotification';
 
@@ -37,10 +37,6 @@ const LocalForm = function () {
             type: 'xuv',
             capacity: 4
         },
-        {
-            type: 'abc',
-            capacity: 4
-        }
     ])
     const [bookingForm, setBookingForm] = useState(profileState.bookingForm)
     const [pickUp, setPickUp] = useState({
@@ -138,8 +134,8 @@ const LocalForm = function () {
             vehicle
         }
         try {
-            showNoty("SUCCESSFULL", "success")
-            let resObj = await localBooking(data)
+            // showNoty("SUCCESSFULL", "success")
+            let resObj = await booking(data)
             console.log(resObj)
             if (resObj.status !== 200) {
                 showNoty("BOOKING LIMIT HAS BEEN REACHED", "danger")
