@@ -8,7 +8,7 @@ const ActiveBookingCard = (props) => {
 
     const activeItem = props.item?.passiveBookingId
     const navigation = useNavigation()
-    console.log("ACTIVE BOOKING " ,props.item)
+    // console.log("ACTIVE BOOKING " ,props.item)
 
     const handleCall = () => {
         Linking.openURL(`tel:${8303024282}`);

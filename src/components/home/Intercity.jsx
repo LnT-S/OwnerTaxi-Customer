@@ -173,7 +173,7 @@ const Intercity = () => {
         setCarSpecificArray(item.subType)
         // console.log(carSpecificArray, carSpecificArray.length)
     }
-    handleVehicleSelection = (item, index) => {
+    const handleVehicleSelection = (item, index) => {
         setisPressed(prev => { return { ...prev, subState: true, subIndex: index } })
         selectVehicle(prev=>{return {...prev , subType : item}})
     }
